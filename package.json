@@ -18,7 +18,8 @@
   "homepage": "https://github.com/agdillon/hackateam-backend#readme",
   "dependencies": {
     "express": "^4.16.4",
-    "knex": "^0.15.2"
+    "knex": "^0.15.2",
+    "pg": "^7.6.0"
   },
   "devDependencies": {
     "nodemon": "^1.18.5"
