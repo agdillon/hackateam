@@ -3,9 +3,14 @@ const express = require('express')
 const port = process.env.PORT || 3000
 const app = express()
 
+const usersRouter = require('./routes/users')
+
 app.use(express.json())
 
-// errors
+// routers
+app.use('/users', usersRouter)
+
+// error handler
 app.use((err, req, res, next) => {
   err.status = err.status || 500
   err.message = err.message || 'Internal server error'
