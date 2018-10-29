@@ -17,8 +17,13 @@
   },
   "homepage": "https://github.com/agdillon/hackateam-backend#readme",
   "dependencies": {
+    "cookie-parser": "^1.4.3",
+    "cookie-session": "^2.0.0-beta.3",
+    "dotenv": "^6.1.0",
     "express": "^4.16.4",
     "knex": "^0.15.2",
+    "passport": "^0.4.0",
+    "passport-github": "^1.1.0",
     "pg": "^7.6.0",
     "uuid": "^3.3.2"
   },
