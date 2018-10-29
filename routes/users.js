@@ -1,8 +1,15 @@
+require('dotenv').config()
+
+const passport = require('passport')
+const GitHubStrategy = require('passport-github').Strategy
+
+const cookieSession = require('cookie-session')
+
 const express = require('express')
 const uuidv4 = require('uuid/v4')
 const knex = require('../knex')
 
-const router = express.Router()
+const cookieAge = 24 * 60 * 60 * 1000 // 24 hours
 
 // after successful OAuth login
 router.get('/login', (req, res, next) => {
