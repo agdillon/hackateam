@@ -5,12 +5,14 @@ const app = express()
 
 const usersRouter = require('./routes/users')
 const teamsRouter = require('./routes/teams')
+const eventsRouter = require('./routes/events')
 
 app.use(express.json())
 
 // routers
 app.use('/users', usersRouter)
 app.use('/teams', teamsRouter)
+app.use('/events', eventsRouter)
 
 // error handler
 app.use((err, req, res, next) => {
