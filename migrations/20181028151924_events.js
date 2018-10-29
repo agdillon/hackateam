@@ -6,7 +6,7 @@ exports.up = function(knex, Promise) {
       table.string('name', 255).notNullable().defaultTo('')
       table.date('date').notNullable().defaultTo(null)
       table.string('location', 255).notNullable().defaultTo('')
-    //   table.string('username', 255).notNullable().defaultTo('')
+      table.text('event_picture_url').defaultTo('')
       table.text('description').defaultTo('')
       table.timestamps(true, true)
     })

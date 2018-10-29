@@ -7,6 +7,7 @@ exports.up = function(knex, Promise) {
       table.string('last_name', 255).notNullable().defaultTo('')
       table.string('email', 255).notNullable().defaultTo('').unique()
       table.text('portfolio_url').defaultTo('')
+      table.text('user_picture_url').defaultTo('')
       table.timestamps(true, true)
     })
   }
