@@ -85,6 +85,27 @@ router.post('/', (req, res, next) => {
       })
       // create user team association
   })
+  // Delete team member
+  router.delete('/:id/removeMember', (req ,res, next) => {
+      knex('user_team')
+      .where({
+          team_id: req.params.id,
+          user_id: req.body.user_id
+      })
+      .first()
+      .then((row) => {
+          if(!row) return next()
+          knex('user_team')
+          .del()
+          .where({
+            team_id: req.params.id,
+            user_id: req.body.user_id
+        })
+        .then(() => {
+            res.send(`ID ${req.body.user_id} Deleted`)
+        })
+      })
+  })
 // UPDATE ONE record for this table
 router.put('/:id', (req, res, next) => {
     knex('teams')
