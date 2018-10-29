@@ -19,6 +19,10 @@ router.get('/:id', (req, res, next) => {
       .where('id',req.params.id)
       .then((rows) => {
         res.json(rows)
+        //   knex.select('*').from('teams').join('user_team', 'teams.id', 'user_team.team_id')
+        //   .then((data) => {
+        //     res.json(data)
+        //   })
       })
       .catch((err) => {
         next(err)
