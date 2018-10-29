@@ -4,11 +4,13 @@ const port = process.env.PORT || 3000
 const app = express()
 
 const usersRouter = require('./routes/users')
+const teamsRouter = require('./routes/teams')
 
 app.use(express.json())
 
 // routers
 app.use('/users', usersRouter)
+app.use('/teams', teamsRouter)
 
 // error handler
 app.use((err, req, res, next) => {
