@@ -41,6 +41,7 @@ router.get('/:id', (req, res, next) => {
   })
 // CREATE ONE record for this table
 router.post('/', (req, res, next) => {
+    // add associated user team to table
     knex('teams')
       .insert({
         "key": uuidv4(),
@@ -57,6 +58,32 @@ router.post('/', (req, res, next) => {
       .catch((err) => {
         next(err)
       })
+  })
+  // CREATE user-team association (add by email?)
+  router.post('/:id/addMember', (req, res, next) => {
+      // recieving email
+      // find user by email
+      knex('users')
+      .where('email', req.body.email)
+      .then((user) => {
+          res.json(user)
+          knex('user_team')
+          .insert({
+              "key": uuidv4(),
+              "user_id": user[0].id,
+              "team_id": req.params.id
+          })
+          .returning('*')
+          .then((data) => {
+              res.json(data[0])
+          }).catch((err) => {
+              next(err)
+          })
+      })
+      .catch((err) => {
+          next(err)
+      })
+      // create user team association
   })
 // UPDATE ONE record for this table
 router.put('/:id', (req, res, next) => {
