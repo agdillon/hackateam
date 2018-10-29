@@ -1,55 +1,8 @@
-require('dotenv').config()
-
-const passport = require('passport')
-const GitHubStrategy = require('passport-github').Strategy
-
-const cookieSession = require('cookie-session')
-
 const express = require('express')
 const uuidv4 = require('uuid/v4')
 const knex = require('../knex')
 
-const cookieAge = 24 * 60 * 60 * 1000 // 24 hours
-
 const router = express.Router()
-
-router.use(cookieSession({ name: 'hackateam', secret: process.env.COOKIE_SECRET, maxAge: cookieAge }))
-
-router.use(passport.initialize())
-
-passport.use(new GitHubStrategy(
-  {
-    clientID: process.env.CLIENT_ID,
-    clientSecret: process.env.CLIENT_SECRET,
-    callbackURL: process.env.CALLBACK,
-    userAgent: process.env.DOMAIN
-  },
-  function onSuccess(token, refreshToken, profile, done) {
-    console.log("*** onSuccess, token: ", token);
-    console.log("*** onSuccess, profile.displayName: ", profile.displayName);
-    // serialize token and profile
-    done(null, { token, profile })
-  }
-))
-
-router.use(passport.session())
-
-passport.serializeUser((object, done) => {
-  console.log("*** passport.serializeUser callback, object.profile.displayName: ", object.profile.displayName);
-  done(null, { displayName: object.profile.displayName, token: object.token })
-})
-
-passport.deserializeUser((object, done) => {
-  console.log("*** passport.deserializeUser, object: ", object);
-  done(null, object)
-})
-
-router.get('/auth',
-  passport.authenticate('github', {
-    successRedirect: '/users/login',
-    failureRedirect: '/welcome.html',
-    scope: 'user:email'
-  }))
 
 // after successful OAuth login
 router.get('/login', (req, res, next) => {
