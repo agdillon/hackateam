@@ -1,4 +1,5 @@
 const express = require('express')
+const cookieParser = require('cookie-parser')
 
 const port = process.env.PORT || 3000
 const app = express()
@@ -8,6 +9,7 @@ const teamsRouter = require('./routes/teams')
 const eventsRouter = require('./routes/events')
 
 app.use(express.json())
+app.use(cookieParser(process.env.COOKIE_SECRET))
 
 // routers
 app.use('/users', usersRouter)
