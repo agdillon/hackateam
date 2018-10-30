@@ -76,4 +76,16 @@ router.delete('/:id', (req, res, next) => {
     .catch((err) => { console.log(err) })
 })
 
+// get all skills for user
+router.get('/:id/skills', (req, res, next) => {
+  knex('users').select('skills.id', 'skills.key', 'skills.type')
+  .innerJoin('user_skills', 'users.id', 'user_id')
+  .innerJoin('skills', 'skills.id', 'skill_id')
+  .where('users.id', req.params.id)
+    .then(rows => {
+      res.json(rows)
+    })
+    .catch((err) => { console.log(err) })
+})
+
 module.exports = router
