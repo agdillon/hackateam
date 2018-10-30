@@ -88,4 +88,17 @@ router.get('/:id/skills', (req, res, next) => {
     .catch((err) => { console.log(err) })
 })
 
+// get all teams for user
+router.get('/:id/teams', (req, res, next) => {
+  knex('users').select('teams.id', 'teams.key', 'team_size_limit',
+  'teams.has_idea', 'teams.is_full', 'teams.event_id', 'teams.description')
+  .innerJoin('user_team', 'users.id', 'user_id')
+  .innerJoin('teams', 'teams.id', 'team_id')
+  .where('users.id', req.params.id)
+    .then(rows => {
+      res.json(rows)
+    })
+    .catch((err) => { console.log(err) })
+})
+
 module.exports = router
