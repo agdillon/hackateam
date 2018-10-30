@@ -37,6 +37,15 @@ router.get('/login', (req, res, next) => {
     })
 })
 
+// get one user by id
+router.get('/:id', (req, res, next) => {
+  knex('users').first().where('id', req.params.id)
+    .then(user => {
+      res.json(user)
+    })
+    .catch((err) => { console.log(err) })
+})
+
 // user edit (update)
 router.put('/:id', (req, res, next) => {
   // // check authorization -- should also check secret and check if cookie session id is the same as req.params.id
@@ -44,11 +53,12 @@ router.put('/:id', (req, res, next) => {
   //   next({ status: 401, message: "Not authorized" })
   // }
 
-  let { first_name, last_name, email, portfolio_url } = req.body
-  knex('users').update({ first_name, last_name, email, portfolio_url }).where('id', req.params.id)
+  let { first_name, last_name, portfolio_url } = req.body
+  knex('users').update({ first_name, last_name, portfolio_url }).where('id', req.params.id)
     .then(() => {
       res.redirect('/dashboard.html')
     })
+    .catch((err) => { console.log(err) })
 })
 
 // user delete
@@ -63,6 +73,7 @@ router.delete('/:id', (req, res, next) => {
       res.clearCookie('hackateam')
       res.redirect('/welcome.html')
     })
+    .catch((err) => { console.log(err) })
 })
 
 module.exports = router
