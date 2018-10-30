@@ -24,7 +24,7 @@ router.get('/:id', (req, res, next) => {
       })
   })
 // CREATE ONE record for this table
-router.post('/', (req, res, next) => {
+router.post('/new', (req, res, next) => {
     // add skill to data base
     // add skill association to skills wanted or skills user
     return knex('skills')
@@ -72,4 +72,46 @@ router.post('/', (req, res, next) => {
         next(err)
       })
   })
+  // post to user_skills association table
+  router.post('/', (req, res, next) => {
+      // get skill by type
+      knex('skills')
+      .where('type', req.body.type)
+      .then((skillData) => {
+        if(req.body.team_id) {
+            knex('skills_team_wanted')
+            .insert({
+                "key": uuidv4(),
+                "skill_id": skillData[0].id,
+                "team_id": req.body.team_id
+            })
+            .returning('*')
+            .then((associationData) => {
+                res.json({
+                    skillData: skillData[0],
+                    associationData: associationData[0]
+                })
+            }).catch((err) => {
+                next(err)
+            })
+        } else if(req.body.user_id) {
+            knex('user_skills')
+            .insert({
+                "key": uuidv4(),
+                "skill_id": skillData[0].id,
+                "user_id": req.body.user_id
+            })
+            .returning('*')
+            .then((associationData) => {
+                res.json({
+                    skillsData: skillData[0],
+                    associationData: associationData[0]
+                })
+            }).catch((err) => {
+                next(err)
+            })
+        }
+      })
+  })
+  // delete from association table
 module.exports = router
