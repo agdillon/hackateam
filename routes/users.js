@@ -38,7 +38,7 @@ router.get('/login', (req, res, next) => {
 })
 
 // user edit (update)
-router.put('/users/:id', (req, res, next) => {
+router.put('/:id', (req, res, next) => {
   // // check authorization -- should also check secret and check if cookie session id is the same as req.params.id
   // if (!req.cookies || req.cookies.expire < new Date()) {
   //   next({ status: 401, message: "Not authorized" })
@@ -52,7 +52,7 @@ router.put('/users/:id', (req, res, next) => {
 })
 
 // user delete
-router.delete('/users/:id', (req, res, next) => {
+router.delete('/:id', (req, res, next) => {
   // // check authorization -- should also check secret and check if cookie session id is the same as req.params.id
   // if (!req.cookies || req.cookies.expire < new Date()) {
   //   next({ status: 401, message: "Not authorized" })
