@@ -8,6 +8,8 @@ const cookieSession = require('cookie-session')
 const express = require('express')
 const cookieParser = require('cookie-parser')
 
+const cors = require('cors')
+
 const port = process.env.PORT || 3000
 const cookieAge = 24 * 60 * 60 * 1000 // 24 hours
 
@@ -16,6 +18,9 @@ const app = express()
 const usersRouter = require('./routes/users')
 const teamsRouter = require('./routes/teams')
 const eventsRouter = require('./routes/events')
+const skillsRouter = require('./routes/skills')
+
+app.use(cors())
 
 app.use(cookieSession({ secret: process.env.COOKIE_SECRET, maxAge: cookieAge }))
 
@@ -67,6 +72,7 @@ app.get('/users/auth',
 app.use('/users', usersRouter)
 app.use('/teams', teamsRouter)
 app.use('/events', eventsRouter)
+app.use('/skills', skillsRouter)
 
 // error handler
 app.use((err, req, res, next) => {
