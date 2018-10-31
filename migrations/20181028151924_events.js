@@ -8,6 +8,7 @@ exports.up = function(knex, Promise) {
       table.string('location', 255).notNullable().defaultTo('')
       table.text('event_picture_url').defaultTo('')
       table.text('description').defaultTo('')
+      table.text('website').defaultTo('')
       table.timestamps(true, true)
     })
   }
