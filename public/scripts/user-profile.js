@@ -46,12 +46,19 @@ function createChip(skillAdded) {
   })
 }
 
+// code from jsperf.com
+function getCookieValue(a) {
+  b = '; ' + document.cookie;
+  c = b.split('; ' + a + '=');
+  return !!(c.length - 1) ? c.pop().split(';').shift() : '';
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   const addButton = document.getElementById('add-button')
   const chipsDiv = document.getElementById('chipsDiv')
 
-  let mycookie = document.cookie
-  console.log('cookie', mycookie)
+  let mycookie = getCookieValue('session')
+  console.log(mycookie)
 
   // get existing user info from database and fill in form
   axios.get(`${url}/users/${id}`)
