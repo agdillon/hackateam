@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="../styles/styles.css">
+  <link rel="stylesheet" href="../styles/create-team-styles.css">
+  <title>Create a team</title>
+</head>
+
+<body>
+  <!-- navbar to allow user to navigate the website -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand">HackaTeam</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div id="navbarNavDropdown" class="navbar-collapse collapse">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="dashboard.html">Dashboard</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="event.html">Hackathon Events<span class="sr-only">(current)</span></a>
+        </li>
+
+      </ul>
+      <ul class="navbar-nav">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="user-profile.html" id="navbarDropdownMenuLink" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            My Profile
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="user-profile.html">Edit</a>
+            <a class="dropdown-item" href="../index.html">Logout</a>
+          </div>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- create a team form -->
+
+  <form action="event.html" class="create-team" id="post-form">
+    <h1>Event Name</h1><br>
+    <h2>Find a Team</h2>
+
+    <!-- <label for="inputTeamName" class="sr-only">Team Name</label> -->
+    <!-- <input type="text" id="inputTeamName" class="form-control" placeholder="Team Name" required="" autofocus=""><br> -->
+    <div class="input-group" id="skillsDiv">
+      <label for="skillsWanted" class="sr-only">Skills Wanted</label>
+      <input type="text" list="skills" id="skillsWanted" class="form-control" placeholder="Skills Wanted" autofocus=""
+        name="skillsWanted"><br>
+      <datalist id="skills">
+      </datalist>
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary" type="button" id="add-button">Add</button>
+      </div>
+    </div>
+    <div id="chipsDiv">
+
+    </div>
+
+    <div class="form-group">
+      <label for="teamSize" class="sr-only">Team Size</label>
+      <select class="form-control" id="team-size" name="team_size_limit">
+        <option value="" disabled selected>Select Team Size</option>
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+        <option>6</option>
+      </select>
+    </div>
+
+    <div class="form-check">
+      <input type="checkbox" class="form-check-input false" id="has-idea" name="has_idea" value="">
+      <label class="form-check-label" for="has-idea">Check here if you have an idea for a project</label>
+    </div>
+
+    <div class="form-group">
+      <label for="description" class="sr-only">Description</label>
+      <textarea class="form-control" placeholder="Write a little about yourself/Ideas that you have for the event."
+        rows="5" id="team-description" name="description"></textarea>
+    </div>
+
+    <button class="btn btn-lg btn-primary btn-block" type="submit" id="submit">Submit</button><br>
+  </form>
+
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="../scripts/create-team.js"></script>
+</body>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+  crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+  crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+  crossorigin="anonymous"></script>
+
+</html>

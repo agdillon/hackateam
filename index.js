@@ -89,6 +89,8 @@ passport.deserializeUser((id, done) => {
 app.use(express.json())
 app.use(cookieParser())
 
+app.use(express.static('public'))
+
 // passport route to initiate GitHub OAuth
 app.get('/users/auth/github', passport.authenticate('github'))
 
