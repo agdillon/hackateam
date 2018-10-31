@@ -1,4 +1,4 @@
-const url = 'https://hackateam-cat.herokuapp.com/'
+const url = 'https://hackateam-cat.herokuapp.com'
 
 // temporarily hardcoding a user id of 1
 const id = 1
