@@ -50,6 +50,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const addButton = document.getElementById('add-button')
   const chipsDiv = document.getElementById('chipsDiv')
 
+  let mycookie = document.cookie
+  console.log('cookie', mycookie)
+
   // get existing user info from database and fill in form
   axios.get(`${url}/users/${id}`)
     .then(response => {

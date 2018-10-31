@@ -22,7 +22,7 @@ const skillsRouter = require('./routes/skills')
 
 app.use(cors())
 
-app.use(cookieSession({ secret: process.env.COOKIE_SECRET }))
+app.use(cookieSession({ secret: process.env.COOKIE_SECRET, httpOnly: false }))
 
 // passport middleware
 app.use(passport.initialize())
