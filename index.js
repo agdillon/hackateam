@@ -7,11 +7,11 @@ const cookieSession = require('cookie-session')
 
 const express = require('express')
 const cookieParser = require('cookie-parser')
-
+const uuidv4 = require('uuid/v4')
 const cors = require('cors')
+const knex = require('./knex')
 
 const port = process.env.PORT || 3000
-const cookieAge = 24 * 60 * 60 * 1000 // 24 hours
 
 const app = express()
 
@@ -22,7 +22,7 @@ const skillsRouter = require('./routes/skills')
 
 app.use(cors())
 
-app.use(cookieSession({ secret: process.env.COOKIE_SECRET, maxAge: cookieAge }))
+app.use(cookieSession({ secret: process.env.COOKIE_SECRET }))
 
 // passport middleware
 app.use(passport.initialize())
@@ -36,35 +36,67 @@ passport.use(new GitHubStrategy(
     scope: 'user:email'
   },
   function onSuccess(token, refreshToken, profile, done) {
-    console.log("*** onSuccess, token: ", token);
-    console.log("*** onSuccess, profile.displayName: ", profile.displayName);
-    // serialize token and profile
-    done(null, { token, profile })
+    // split name from GitHub to prepopulate first and last name
+    let firstName, lastName
+    let fullName = profile.displayName
+    let firstSpaceIndex = fullName.indexOf(' ')
+    if (firstSpaceIndex === -1) {
+      firstName = fullName
+    }
+    else {
+      firstName = fullName.slice(0, firstSpaceIndex)
+      lastName = fullName.slice(firstSpaceIndex + 1)
+    }
+
+    knex('users').first().where('email', profile.emails[0].value)
+      .then(user => {
+        // check db to see if user already exists (by email)
+        if (user) {
+          done(null, user)
+        }
+        // if not, make a db entry for them
+        else {
+          knex('users').insert({ key: uuidv4(), email: profile.emails[0].value,
+            first_name: firstName, last_name: lastName, user_picture_url: profile._json.avatar_url })
+            .returning()
+            .then(user => {
+              done(null, user)
+            })
+            .catch(err => next(err))
+        }
+      })
+      .catch(err => next(err))
   }
 ))
 
 // session/cookie stuff
 app.use(passport.session())
 
-passport.serializeUser((object, done) => {
-  console.log(object)
-  console.log("*** passport.serializeUser callback, object.profile.displayName: ", object.profile.displayName);
-  done(null, { displayName: object.profile.displayName, token: object.token,
-    email: object.profile.emails[0].value, user_picture_url: object.profile._json.avatar_url })
+passport.serializeUser((user, done) => {
+  done(null, user.id)
 })
 
-passport.deserializeUser((object, done) => {
-  console.log("*** passport.deserializeUser, object: ", object);
-  done(null, object)
+passport.deserializeUser((id, done) => {
+  // what do i need to do when user visits the site and already has a cookie?
+  // i.e. what needs to be stored in req.user?
+  knex('users').first().where('id', id)
+    .then(user => {
+      done(null, user)
+    })
+    .catch(err => next(err))
 })
 
 app.use(express.json())
 app.use(cookieParser())
 
+// passport route to initiate GitHub OAuth
+app.get('/users/auth/github', passport.authenticate('github'))
+
+// passport callback route
 app.get('/users/auth',
   passport.authenticate('github', {
-    successRedirect: '/users/login',
-    failureRedirect: '/welcome.html',
+    successRedirect: '/user-profile.html',
+    failureRedirect: '/',
     scope: 'user:email'
   }))
 
