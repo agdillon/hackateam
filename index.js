@@ -97,8 +97,8 @@ app.get('/users/auth/github', passport.authenticate('github'))
 // passport callback route
 app.get('/users/auth',
   passport.authenticate('github', {
-    successRedirect: 'http://hackateam.surge.sh/html/user-profile.html',
-    failureRedirect: 'http://hackateam.surge.sh/',
+    successRedirect: 'https://hackateam-cat.herokuapp.com/html/user-profile.html',
+    failureRedirect: 'https://hackateam-cat.herokuapp.com/',
     scope: 'user:email'
   }))
 

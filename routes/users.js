@@ -6,7 +6,7 @@ const router = express.Router()
 // user log out
 router.get('/logout', (req, res, next) => {
   req.logout()
-  res.redirect('http://hackateam.surge.sh/')
+  res.redirect('https://hackateam-cat.herokuapp.com/')
 })
 
 // get one user by id
@@ -23,7 +23,7 @@ router.put('/:id', (req, res, next) => {
   let { first_name, last_name, portfolio_url } = req.body
   knex('users').update({ first_name, last_name, portfolio_url }).where('id', req.params.id)
     .then(() => {
-      res.redirect('http://hackateam.surge.sh/html/dashboard.html')
+      res.redirect('https://hackateam-cat.herokuapp.com/html/dashboard.html')
     })
     .catch((err) => { console.log(err) })
 })
@@ -33,7 +33,7 @@ router.delete('/:id', (req, res, next) => {
   knex('users').del().where('id', req.params.id)
     .then(() => {
       res.clearCookie('hackateam')
-      res.redirect('http://hackateam.surge.sh/')
+      res.redirect('https://hackateam-cat.herokuapp.com/')
     })
     .catch((err) => { console.log(err) })
 })
