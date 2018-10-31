@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const addButton = document.getElementById('add-button')
   const chipsDiv = document.getElementById('chipsDiv')
 
-  let userId = atob(getCookieValue('session'))
+  let userId = JSON.parse(atob(getCookieValue('session'))).passport.user
 
   // get existing user info from database and fill in form
   axios.get(`${url}/users/${userId}`)
