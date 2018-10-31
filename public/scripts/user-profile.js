@@ -17,14 +17,6 @@ function submitHandler(ev) {
 
   axios.put(`${url}/users/${userId}`, getFormData())
     .then(() => { window.location.href = `https://hackateam-cat.herokuapp.com/html/dashboard.html` })
-
-<<<<<<< HEAD
-  axios.put(`${url}/users/${id}`, getFormData())
-    .then(() => { window.location.href = `https://hackateam-cat.herokuapp.com/html/dashboard.html` })
-=======
-  axios.put(`${url}/users/${userId}`, getFormData())
-    .then(() => { window.location.href = `http://hackateam.surge.sh/html/dashboard.html` })
->>>>>>> cookies
     .catch((err) => { console.log(err) })
 }
 
