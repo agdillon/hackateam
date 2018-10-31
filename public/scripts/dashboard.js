@@ -1,10 +1,20 @@
 const url = 'http://localhost:3000'
 
+/*******TO DO*******/
+// get user id from cookie/local storage
+let userId = 1
+
 document.addEventListener('DOMContentLoaded', () => {
-    fillEventInfo()
+    
+    
+
+
+    getUserTeams()
+    // fillEventInfo()
 })
 
 // auto fill event cards
+// needs edit to fill only events associated with teams user is on
 let fillEventInfo = () => {
     axios.get(`${url}/events`)
     .then((response) => {
@@ -12,6 +22,21 @@ let fillEventInfo = () => {
         let events = response.data
         events.forEach((event) => {
             createCard(event)
+        })
+    })
+}
+
+// get all teams user is associated with
+let userEvents = []
+let getUserTeams = () => {
+    axios.get(`${url}/users/${userId}/teams`)
+    .then((response) => {
+        console.log(response.data)
+        /*******TO DO*******/
+        // get events from user associated teams
+        let teams = response.data
+        teams.forEach((team) => {
+            // do an axios call for each eventid from team to get event info??? or something like that 
         })
     })
 }
@@ -72,7 +97,7 @@ function createCard(event) {
     cardButton.addEventListener('click', (e) => {
     //   localStorage.setItem('event-search-id', event.id)
       /*********TO DO ************/
-        // on click of event card, 
+        // on click of event card
         // show your team info on left (including skills wanted and skills of team members)
         // needs manage teammate buttons and edit button linking to other pages
         // generate teams also going to event

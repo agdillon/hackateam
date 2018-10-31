@@ -23,4 +23,9 @@ router.get('/:id', (req, res, next) => {
       })
   })
 
+  router.get('/userEvents/:id', (req, res, next) => {
+    knex('teams')
+
+  })
+
 module.exports = router
