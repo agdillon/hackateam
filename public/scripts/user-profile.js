@@ -19,7 +19,7 @@ function submitHandler(ev) {
   ev.preventDefault()
 
   axios.put(`${url}/users/${id}`, getFormData())
-    .then(() => { window.location.href = `http://hackateam.surge.sh/html/dashboard.html` })
+    .then(() => { window.location.href = `https://hackateam-cat.herokuapp.com/html/dashboard.html` })
     .catch((err) => { console.log(err) })
 }
 
