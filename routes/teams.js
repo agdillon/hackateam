@@ -74,6 +74,21 @@ router.post('/', (req, res, next) => {
         .returning('*')
         .then((data) => {
             res.json(data[0])
+            return knex('user_team')
+                .insert({
+                    "key": uuidv4(),
+                    "user_id": req.body.user_id,
+                    "team_id": data[0].id
+                })
+                .returning('*')
+                .then((allData) => {
+                    res.json({
+                        userTeam: allData[0],
+                        teamData: data[0]
+                    })
+                }).catch((err) => {
+                    next(err)
+                })
         })
         .catch((err) => {
             next(err)
@@ -94,8 +109,8 @@ router.post('/:id/addMember', (req, res, next) => {
                     "team_id": req.params.id
                 })
                 .returning('*')
-                .then((data) => {
-                    res.json(data[0])
+                .then((allData) => {
+                    res.json(allData[0])
                 }).catch((err) => {
                     next(err)
                 })
