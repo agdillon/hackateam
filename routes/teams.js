@@ -121,11 +121,12 @@ router.post('/:id/addMember', (req, res, next) => {
     // create user team association
 })
 // Delete team member
-router.delete('/:id/removeMember', (req, res, next) => {
+router.delete('/:id/removeMember/:userid', (req, res, next) => {
+console.log(req.params)
     return knex('user_team')
         .where({
             team_id: req.params.id,
-            user_id: req.body.user_id
+            user_id: req.params.userid
         })
         .first()
         .then((row) => {
@@ -134,10 +135,10 @@ router.delete('/:id/removeMember', (req, res, next) => {
                 .del()
                 .where({
                     team_id: req.params.id,
-                    user_id: req.body.user_id
+                    user_id: req.params.userid
                 })
                 .then(() => {
-                    res.send(`ID ${req.body.user_id} Deleted`)
+                    res.send(`ID ${req.params.userid} Deleted`)
                 })
         })
 })
