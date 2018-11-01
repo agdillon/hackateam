@@ -8,15 +8,14 @@ document.addEventListener('DOMContentLoaded', () => {
     
     
 
-
     getUserTeams()
-    // fillEventInfo()
+    fillEventInfo()
 })
 
 // auto fill event cards
 // needs edit to fill only events associated with teams user is on
 let fillEventInfo = () => {
-    axios.get(`${url}/events`)
+    axios.get(`${url}/users/${userId}/events`)
     .then((response) => {
         console.log(response.data)
         let events = response.data
@@ -27,19 +26,13 @@ let fillEventInfo = () => {
 }
 
 // get all teams user is associated with
-let userEvents = []
 let getUserTeams = () => {
     axios.get(`${url}/users/${userId}/teams`)
     .then((response) => {
         console.log(response.data)
-        /*******TO DO*******/
-        // get events from user associated teams
-        let teams = response.data
-        teams.forEach((team) => {
-            // do an axios call for each eventid from team to get event info??? or something like that 
-        })
     })
 }
+
 
 /******TO DO **********/
 // search/filter bar to find/filter team containing skills you want/input (team member skills)
@@ -99,9 +92,16 @@ function createCard(event) {
       /*********TO DO ************/
         // on click of event card
         // show your team info on left (including skills wanted and skills of team members)
+
         // needs manage teammate buttons and edit button linking to other pages
         // generate teams also going to event
         // hide events
     })
   
   }
+
+  // build your team card
+  let createYourTeamCard = () => {
+      
+  }
+  // build other teams cards
