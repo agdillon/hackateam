@@ -184,4 +184,17 @@ router.delete('/:id', function (req, res, next) {
             next(err)
         })
 })
+
+// get teams by event
+router.get('/event/:id', function (req, res, next) {
+    return knex('teams')
+    .where('event_id', req.params.id)
+        .then((rows) => {
+            res.json(rows)
+        })
+        .catch((err) => {
+            next(err)
+        })
+})
+
 module.exports = router

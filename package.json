@@ -14,6 +14,9 @@
     "type": "git",
     "url": "git+https://github.com/agdillon/hackateam-backend.git"
   },
+  "engines": {
+    "node": "v10.11.0"
+  },
   "author": "",
   "license": "ISC",
   "bugs": {

@@ -4,7 +4,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+    crossorigin="anonymous">
   <link rel="stylesheet" href="../styles/dashboard-styles.css">
   <title>Events</title>
 </head>
@@ -14,7 +15,8 @@
   <!-- navbar to allow user to navigate the website -->
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand">HackaTeam</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
+      aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div id="navbarNavDropdown" class="navbar-collapse collapse">
@@ -22,14 +24,15 @@
         <li class="nav-item">
           <a class="nav-link" href="dashboard.html">Dashboard</a>
         </li>
-          <li class="nav-item active">
+        <li class="nav-item active">
           <a class="nav-link" href="event.html">Hackathon Events<span class="sr-only">(current)</span></a>
         </li>
 
       </ul>
       <ul class="navbar-nav">
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="user-profile.html" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" href="user-profile.html" id="navbarDropdownMenuLink" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
             My Profile
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -40,46 +43,59 @@
     </div>
   </nav>
 
- <!-- user can see all of the events they are currently in and in the future -->
+  <!-- user can see all of the events they are currently in and in the future -->
   <div class="jumbotron">
     <div class="container text-center">
       <h1>Your Dashboard</h1>
-      <p>Here is where you can find the events you are involved in as well as view any event changes or changes made by a team leader.</p><br>
-      <p>If you havent already, please create a profile to start joining and creating hackathon teams.</p>
-      <a class="btn btn-primary" href="signup.html" role="button">Create Profile</a>
+      <p>Here is where you can find the events you are involved in as well as view any event changes or changes made by
+        a team leader.</p><br>
     </div>
   </div>
 
-  <div class="container-fluid bg-3 text-center">
+  <div class="container bg-3 text-center" id="cards-container">
     <h3>Events coming up that you're involved in.</h3><br>
-    <div class="row">
-
-      <div class="col-sm-3">
-        <p>Some Event text..</p>
-        <a href="./events/event1.html"><img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image" /></a>
-      </div>
-
-      <div class="col-sm-3">
-        <p>Some Event text..</p>
-        <a href="./events/event2.html"><img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image"/></a>
-      </div>
-
-      <div class="col-sm-3">
-        <p>Some Event text..</p>
-        <a href="./events/event3.html"><img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image"/></a>
-      </div>
-
-      <div class="col-sm-3">
-        <p>Some Event text..</p>
-        <a href="./events/event4.html"><img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image"/></a>
-      </div>
+    <div class="row" id="event-row">
 
     </div>
+
   </div><br>
 
+  <div class="container" id="otherTeamsDiv">
+    <div class="row">
+      <div class="col" id="myTeam">
+        <div class="card border-info myTeam">
+          <div class="card-header">Your Team</div>
+          <div class="card-body text-info" id="yourTeamBody">
+            <h5 class="card-title" id="myTeamEventName">Event Name</h5>
+            <p class="card-text" id="myTeamInfo">
+
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-8">
+        <div class="card-columns" id="otherTeams">
+            <div class="card border-secondary">
+                <div class="card-body">
+                  <h5 class="card-title">Card title</h5>
+                  <p class="card-text">This is another card with title and supporting text below. This card has some
+                    additional content to make it slightly taller overall.</p>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+    crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="../scripts/dashboard.js"></script>
 </body>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
 </html>

@@ -1,14 +1,12 @@
 const url = 'http://localhost:3000'
 let skillsToAdd = []
 let allSkills
-
+let eventId = localStorage.getItem('eventID')
 document.addEventListener('DOMContentLoaded', () => {
-    // *****************TO DO************************************
-    // get event id via local storage
+    // *****************TO DO************************************  
     // get user id via local storage
-    // redirect to next page
-    let eventId = 1
     let userId = 1
+    getEventInfo()
     // get all skills
     getAllSkills()
     // add button functionality
@@ -60,6 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         teamInfo.team_size_limit = parseInt(teamInfo.team_size_limit)
         postTeam(teamInfo, allSkills)
+        
     })
 
 })
@@ -94,7 +93,7 @@ let postTeam = (teamInfo, allSkills) => {
                     axios.post(`${url}/skills`, skillData)
                         .then((res) => {
                             console.log(res, response)
-                            // window.location.href = `http://localhost:3001/html/dashboard.html`
+                            window.location.href = `${url}/html/dashboard.html`
                         })
                     // pass in team_id and type
                 } else {
@@ -105,7 +104,7 @@ let postTeam = (teamInfo, allSkills) => {
                     axios.post(`${url}/skills/new`, skillData)
                         .then((res) => {
                             console.log(res, response)
-                            // window.location.href = `http://localhost:3001/html/dashboard.html`
+                            window.location.href = `${url}/html/dashboard.html`
                         })
                 }
             })
@@ -127,5 +126,13 @@ let createChip = (skillAdded, chipsDiv) => {
         let type = document.getElementById(skillAdded)
         type.parentNode.removeChild(type)
         skillsToAdd = skillsToAdd.filter((skill) => skill !== skillAdded)
+    })
+}
+
+let getEventInfo = () => {
+    axios.get(`${url}/events/${eventId}`)
+    .then((response) => {
+        let eventNameSpot = document.getElementById('eventName')
+        eventNameSpot.innerText = response.data[0].name
     })
 }

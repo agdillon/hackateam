@@ -1,7 +1,4 @@
-const url = 'https://hackateam-cat.herokuapp.com/'
-
-// temporarily hardcoding a user id of 1
-const id = 1
+const url = 'https://hackateam-cat.herokuapp.com'
 
 let allPossibleSkills = []
 
@@ -18,8 +15,8 @@ function getFormData() {
 function submitHandler(ev) {
   ev.preventDefault()
 
-  axios.put(`${url}/users/${id}`, getFormData())
-    .then(() => { window.location.href = `http://hackateam.surge.sh/html/dashboard.html` })
+  axios.put(`${url}/users/${userId}`, getFormData())
+    .then(() => { window.location.href = `https://hackateam-cat.herokuapp.com/html/dashboard.html` })
     .catch((err) => { console.log(err) })
 }
 
@@ -41,21 +38,32 @@ function createChip(skillAdded) {
     let type = document.getElementById(skillAdded.type)
     type.parentNode.removeChild(type)
 
-    axios.delete(`${url}/skills/${skillAdded.id}`, { data: { user_id: id } })
+    axios.delete(`${url}/skills/${skillAdded.id}`, { data: { user_id: userId } })
       .catch(err => { console.log(err) })
   })
+}
+
+// code from jsperf.com
+function getCookieValue(a) {
+  b = '; ' + document.cookie;
+  c = b.split('; ' + a + '=');
+  return !!(c.length - 1) ? c.pop().split(';').shift() : '';
 }
 
 document.addEventListener('DOMContentLoaded', () => {
   const addButton = document.getElementById('add-button')
   const chipsDiv = document.getElementById('chipsDiv')
 
+  // get userId out of cookie
+  let userId = JSON.parse(atob(getCookieValue('session'))).passport.user
+
   // get existing user info from database and fill in form
-  axios.get(`${url}/users/${id}`)
+  axios.get(`${url}/users/${userId}`)
     .then(response => {
       let user = response.data
 
       // populate form with current user data
+      document.getElementById('userPicture').setAttribute('src', user.user_picture_url)
       document.getElementById('inputFirstName').value = user.first_name
       document.getElementById('inputLastName').value = user.last_name
       document.getElementById('inputURL').value = user.portfolio_url
@@ -64,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
     .catch((err) => { console.log(err) })
 
   // get all current skills for user and make chips for them
-  axios.get(`${url}/users/${id}/skills`)
+  axios.get(`${url}/users/${userId}/skills`)
     .then(response => {
       response.data.forEach(skill => { createChip(skill) })
     })
@@ -86,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let skillAdded = { type: skillInput.value }
 
     if (allPossibleSkills.includes(skillAdded.type)) {
-      axios.post(`${url}/skills`, { type: skillAdded.type, user_id: id })
+      axios.post(`${url}/skills`, { type: skillAdded.type, user_id: userId })
         .then(response => {
           skillAdded.id = response.data.skillsData.id
           createChip(skillAdded)
@@ -96,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
     else {
       allPossibleSkills.push(skillAdded.type)
 
-      axios.post(`${url}/skills/new`, { type: skillAdded.type, user_id: id })
+      axios.post(`${url}/skills/new`, { type: skillAdded.type, user_id: userId })
         .then(response => {
           skillAdded.id = response.data.skillsData.id
           createChip(skillAdded)

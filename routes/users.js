@@ -63,4 +63,18 @@ router.get('/:id/teams', (req, res, next) => {
     .catch((err) => { console.log(err) })
 })
 
+// get all events for user
+router.get('/:id/events', (req, res, next) => {
+  knex('users').select('events.id', 'events.key', 'events.name', 'events.date',
+  'events.location', 'event_picture_url', 'events.description', 'events.website')
+  .innerJoin('user_team', 'users.id', 'user_id')
+  .innerJoin('teams', 'teams.id', 'team_id')
+  .innerJoin('events', 'events.id', 'event_id')
+  .where('users.id', req.params.id)
+    .then(rows => {
+      res.json(rows)
+    })
+    .catch((err) => { console.log(err) })
+})
+
 module.exports = router
