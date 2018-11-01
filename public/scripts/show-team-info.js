@@ -88,8 +88,23 @@ let getTeam = () => {
         // console.log(response.data)
         teamData = response.data.teamData
         getEvent(teamData[0].event_id)
+
         const description = document.getElementById('team-des')
         description.innerText = teamData[0].description
+
+        // populate team size and idea checkbox
+        const hasIdeaInput = document.getElementById('has-idea')
+        if(teamData.has_idea){
+          hasIdeaInput.checked = true
+        }
+        else {
+          hasIdeaInput.checked = false
+        }
+
+        if (teamData.team_size_limit >= 1 && teamData.team_size_limit <=6) {
+          document.getElementById(teamData.team_size_limit).selected = true
+        }
+
         addMemberBtn.setAttribute('data-id', teamData[0].id)
         memberData = response.data.userData
         skillsData = response.data.skillsWantedData
