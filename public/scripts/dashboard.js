@@ -10,9 +10,9 @@ function getCookieValue(a) {
 }
 
 // temporary hardcoding of userId
-// let userId = 1
+let userId = 2
 // get userId out of cookie
-let userId = JSON.parse(atob(getCookieValue('session'))).passport.user
+// let userId = JSON.parse(atob(getCookieValue('session'))).passport.user
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -132,8 +132,8 @@ function createCard(event, team) {
                 let eventTeam = document.getElementById('otherTeamsDiv')
                 eventTeam.classList.remove('hidden')
                 eventRow.classList.add('hidden')
-
-                axios.get(`${url}/teams/event/${teamId}`)
+                console.log(event.id)
+                axios.get(`${url}/teams/event/${event.id}`)
                     .then((response) => {
                         let teamsByEvent = response.data.filter((team) => {
                             return team.id !== parseInt(teamId)
