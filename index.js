@@ -21,6 +21,7 @@ const eventsRouter = require('./routes/events')
 const skillsRouter = require('./routes/skills')
 
 app.use(cors())
+app.use(cookieParser())
 
 app.use(cookieSession({ secret: process.env.COOKIE_SECRET, httpOnly: false }))
 
