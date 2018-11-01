@@ -2,15 +2,18 @@
     font-family: 'h1Font'; /*a name to be used later*/
     src: url('./fonts/Oswald/Oswald-Bold.ttf'); /*dir to font*/
 }
+
 @font-face {
     font-family: 'h2Font'; /*a name to be used later*/
     src: url('./fonts/Roboto/Roboto-BoldItalic.ttf'); /*dir to font*/
 }
+
 @font-face {
     font-family: 'labelFont'; /*a name to be used later*/
     src: url('./fonts/Roboto/Roboto-Regular.ttf'); /*dir to font*/
 }
-chip {
+
+.chip {
     display: inline-block;
     padding: 0 25px;
     height: 50px;
@@ -19,15 +22,15 @@ chip {
     border-radius: 25px;
     background-color: #f1f1f1;
     margin-bottom: 20px;
-  }
+}
 
-  .closebtn {
-    padding-left: 10px;
-    color: #888;
-    font-weight: bold;
-    float: right;
-    font-size: 20px;
-    cursor: pointer;
+.closebtn {
+  padding-left: 10px;
+  color: #888;
+  font-weight: bold;
+  float: right;
+  font-size: 20px;
+  cursor: pointer;
 }
 
 .closebtn:hover {
