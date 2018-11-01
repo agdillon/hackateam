@@ -39,7 +39,7 @@ passport.deserializeUser((id, done) => {
       console.log('deserializeUser', deserializeUser)
       done(null, user)
     })
-    .catch(err => next(err))
+    .catch(err => { next(err) } )
 })
 
 passport.use(new GitHubStrategy(
