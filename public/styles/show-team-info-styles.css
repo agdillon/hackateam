@@ -1,8 +1,9 @@
 h1 {
+padding-top: 10px;
 position: relative;
 float: none;
 color: black;
-font-size: 40px;
+font-size: 50px;
 font-family: monospace;
 font-weight: bold;
 letter-spacing: -1px;
@@ -19,27 +20,39 @@ margin-top: 40px;
   margin-top: 320px;
 }
 
-form {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
 label {
   font-weight: bold;
-  font-size: 18px;
-    padding-top:6px;
-    color:black;
-    font-family: monospace;
+  font-size: 30px;
+  padding-top:6px;
+  color:black;
+  font-family: monospace;
 }
-
 body{
    background-size: cover;
 }
-.col-md{
-  
+.col-md-6{
+text-align: center;
 }
-
-.card {
+h2{
+  border-bottom: 2px solid currentColor;
+  font-size: 35px;
+  font-weight: bold;
+}
+.card{
   margin: 20px;
+  font-size: 15px;
+}
+.chip{
+  margin: 8px;
+}
+#team-des{
+  text-align: left;
+  font-size: 20px;
+}
+div{
+  text-align: center;
+}
+ul {
+  list-style-type: none;
+  text-align: center;
 }

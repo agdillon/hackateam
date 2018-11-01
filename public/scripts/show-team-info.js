@@ -30,7 +30,7 @@ let getTeam = () => {
         teamData = response.data.teamData
         getEvent(teamData[0].event_id)
         const description = document.getElementById('team-des')
-        description.value = teamData[0].description
+        description.innerText = teamData[0].description
         addBtn.setAttribute('data-id', teamData[0].id)
         memberData = response.data.userData
         skillsData = response.data.skillsWantedData
@@ -62,7 +62,7 @@ let addMemberGroup = (teamId, email) => {
 // append event info
 let appendEvent = (eventInfo) => {
     let eventInput = document.getElementById('eventName')
-    eventInput.value = eventInfo[0].name
+    eventInput.innerText = eventInfo[0].name
 }
 
 // append team info to screen
@@ -71,7 +71,7 @@ let appendMembers = (member) => {
     let teamDiv = document.getElementById('teamDiv')
     let cardDiv = document.createElement('div')
     cardDiv.classList.add('card')
-    cardDiv.setAttribute('style', 'width: 18rem;')
+    cardDiv.setAttribute('style', 'width: 15rem;')
     teamDiv.appendChild(cardDiv)
     //create image
     let userImg = document.createElement('img')
@@ -91,6 +91,9 @@ let appendMembers = (member) => {
     ulList.classList.add('card-text')
     cardBody.appendChild(ulList)
     let skillList = member.userSkills
+
+
+
     skillList.forEach(skill => {
         let li = document.createElement('li')
         li.innerText = skill.type
@@ -104,6 +107,12 @@ let appendMembers = (member) => {
     deleteBtn.setAttribute('data-id', member.user_id)
     deleteBtn.innerText = 'Remove Member'
     cardBody.appendChild(deleteBtn)
+
+    cardDiv.appendChild(cardBody)
+
+    let row = document.getElementById('member-row')
+    row.appendChild(cardDiv)
+
     // add event listener to delete button
     deleteBtn.addEventListener('click', (event) => {
         let userId = event.target.getAttribute('data-id')
