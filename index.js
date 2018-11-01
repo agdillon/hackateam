@@ -21,7 +21,6 @@ const eventsRouter = require('./routes/events')
 const skillsRouter = require('./routes/skills')
 
 app.use(cors())
-app.use(cookieParser())
 
 app.use(cookieSession({ secret: process.env.COOKIE_SECRET, httpOnly: false }))
 
@@ -37,6 +36,7 @@ passport.deserializeUser((id, done) => {
   // i.e. what needs to be stored in req.user?
   knex('users').first().where('id', id)
     .then(user => {
+      console.log('deserializeUser', deserializeUser)
       done(null, user)
     })
     .catch(err => next(err))
@@ -87,7 +87,6 @@ passport.use(new GitHubStrategy(
 app.use(passport.session())
 
 app.use(express.json())
-app.use(cookieParser())
 
 app.use(express.static('public'))
 
