@@ -10,12 +10,40 @@ img{
   height: 175px;
   width: 50%;
 }
+h1{
+  font-family: 'h1Font';
+  color: #e5e5ff;
+  font-size: 80px;
+}
+h2{
+  font-size: 30px;
+  color: #d4d4dc;
+  font-family: labelFont;
+}
 .card{
   margin: auto;
   width: 30%;
   padding: 5px;
   text-align: center;
 }
+p{
+  font-family: sans-serif;
+  font-size: 20px;
+  color: #d4d4dc;
+}
+.jumbotron{
+background:
+       /* top, transparent black, faked with gradient */
+       linear-gradient(
+         rgba(0, 0, 0, 0.7),
+         rgba(0, 0, 0, 0.7)
+       ),
+       /* bottom, image */
+       url('https://images.pexels.com/photos/1068523/pexels-photo-1068523.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940') fixed center no-repeat;
+       background-size: cover;
+       padding-top: 12%;
+       padding-bottom: 12%;
+   }
 #brand{
   color: white;
   font-family: labelFont;

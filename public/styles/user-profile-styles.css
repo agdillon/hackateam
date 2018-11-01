@@ -6,29 +6,29 @@
     font-family: 'labelFont'; /*a name to be used later*/
     src: url('./fonts/Roboto/Roboto-Regular.ttf'); /*dir to font*/
 }
+h2{
+  font-size: 23px;
+}
 h1 {
+position: relative;
+float: none;
+color: #d4d4dc;
+font-size: 50px;
+font-family: h1Font;
+font-weight: bold;
+line-height: 1;
+text-align: center;
+margin-top: 15px;
+}
+
+.form-signup {
   position: relative;
   float: none;
-  color: black;
-  font-size: 40px;
-  font-family: monospace;
-  font-weight: bold;
-  letter-spacing: -1px;
-  line-height: 1;
   text-align: center;
-  margin-top: 40px;
-}
-
-label {
-  font-weight: bold;
-  font-size: 18px;
-  padding-top:6px;
-  color:black;
-  font-family: monospace;
-}
-
-body {
-   background-size: cover;
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin-top: 320px;
 }
 
 form {
@@ -37,24 +37,23 @@ form {
   left: 50%;
   transform: translate(-50%, -50%);
 }
-
-.chip {
-  margin-top: 10px;
-}
-
-#sign-in {
+#welcomeMessage, #sign-up{
   font-weight: bold;
   font-size: 2em;
   color: black;
   font-family: monospace;
 }
 
-#welcomeMessage {
-  margin-top: 25px;
+label {
+  font-weight: bold;
+  font-size: 18px;
+    padding-top:6px;
+    color:black;
+    font-family: monospace;
 }
 
-#submit {
-  margin-top: 20px;
+body{
+   background-size: cover;
 }
 #brand{
   color: white;
