@@ -54,10 +54,9 @@ function createCard(infoObject) {
 
   cardButton.setAttribute('data-id', infoObject.id)
 
-  let date = new Date(infoObject.date)
-  // cardDate.innerText = `${date.getMonth()}/${date.getDay()}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`
-  // cardDate.innerText = date.getMonth()
-  cardDate.innerText = infoObject.date
+
+  let date = infoObject.date.split('T')
+  cardDate.innerText = date[0]
   cardLocation.innerText = infoObject.location
   cardButton.innerText = "Find Team"
   cardButton.classList.add('btn')

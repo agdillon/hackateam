@@ -20,14 +20,14 @@ text-align: center;
 margin-top: 15px;
 }
 
-.form-signup {
+#editProfileForm {
   position: relative;
   float: none;
   text-align: center;
   width: 100%;
-  max-width: 200px;
+  max-width: 330px;
   padding: 15px;
-  margin-top: 40px;
+  margin-top: 320px;
 }
 
 form {
