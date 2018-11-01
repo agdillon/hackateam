@@ -12,10 +12,9 @@ h2{
 h1 {
 position: relative;
 float: none;
-color: #d4d4dc;
-font-size: 50px;
+color: #e5e5ff;
+font-size: 60px;
 font-family: h1Font;
-font-weight: bold;
 line-height: 1;
 text-align: center;
 margin-top: 15px;
@@ -26,9 +25,9 @@ margin-top: 15px;
   float: none;
   text-align: center;
   width: 100%;
-  max-width: 330px;
+  max-width: 200px;
   padding: 15px;
-  margin-top: 320px;
+  margin-top: 40px;
 }
 
 form {
