@@ -10,9 +10,9 @@ function getCookieValue(a) {
 }
 
 // temporary hardcoding of userId
-// let userId = 1
+let userId = 2
 // get userId out of cookie
-let userId = JSON.parse(atob(getCookieValue('session'))).passport.user
+// let userId = JSON.parse(atob(getCookieValue('session'))).passport.user
 
 document.addEventListener('DOMContentLoaded', () => {
 
