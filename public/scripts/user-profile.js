@@ -1,5 +1,15 @@
 const url = 'https://hackateam-cat.herokuapp.com'
 
+// code from jsperf.com
+function getCookieValue(a) {
+  b = '; ' + document.cookie;
+  c = b.split('; ' + a + '=');
+  return !!(c.length - 1) ? c.pop().split(';').shift() : '';
+}
+
+// get userId out of cookie
+const userId = JSON.parse(atob(getCookieValue('session'))).passport.user
+
 let allPossibleSkills = []
 
 function getFormData() {
@@ -43,19 +53,9 @@ function createChip(skillAdded) {
   })
 }
 
-// code from jsperf.com
-function getCookieValue(a) {
-  b = '; ' + document.cookie;
-  c = b.split('; ' + a + '=');
-  return !!(c.length - 1) ? c.pop().split(';').shift() : '';
-}
-
 document.addEventListener('DOMContentLoaded', () => {
   const addButton = document.getElementById('add-button')
   const chipsDiv = document.getElementById('chipsDiv')
-
-  // get userId out of cookie
-  let userId = JSON.parse(atob(getCookieValue('session'))).passport.user
 
   // get existing user info from database and fill in form
   axios.get(`${url}/users/${userId}`)

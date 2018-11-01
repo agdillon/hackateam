@@ -67,9 +67,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // get form data
     let description = document.getElementById('team-des').value
     let teamSize = document.getElementById('team-size').value
-    let hasIdea = document.getElementById('has-idea').value
 
-    axios.put(`${url}/teams/${teamId}`, { description, team_size_limit: teamSize, idea: hasIdea })
+    let checkBox = document.getElementById('has-idea')
+    let ideaBool
+    if (checkBox.classList.contains('false')) {
+      ideaBool = false
+    } else {
+      ideaBool = true
+    }
+
+    axios.put(`${url}/teams/${teamId}`, { description, team_size_limit: teamSize, idea: ideaBool })
       .catch((err) => { console.log(err) })
   })
 })

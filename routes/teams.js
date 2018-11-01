@@ -238,7 +238,6 @@ router.get('/event/:id', function (req, res, next) {
     // return knex('teams')
     // .where('event_id', req.params.id)
     //     .then((rows) => {
-            
     //     })
     //     .catch((err) => {
     //         next(err)
