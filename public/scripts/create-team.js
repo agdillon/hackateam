@@ -5,7 +5,17 @@ let eventId = localStorage.getItem('eventID')
 document.addEventListener('DOMContentLoaded', () => {
     // *****************TO DO************************************
     // get user id via local storage
-    let userId = 1
+    // code from jsperf.com
+    function getCookieValue(a) {
+        b = '; ' + document.cookie;
+        c = b.split('; ' + a + '=');
+        return !!(c.length - 1) ? c.pop().split(';').shift() : '';
+    }
+
+    // temporary hardcoding of userId
+    // let userId = 1
+    // get userId out of cookie
+    let userId = JSON.parse(atob(getCookieValue('session'))).passport.user
     getEventInfo()
     // get all skills
     getAllSkills()
@@ -131,8 +141,8 @@ let createChip = (skillAdded, chipsDiv) => {
 
 let getEventInfo = () => {
     axios.get(`${url}/events/${eventId}`)
-    .then((response) => {
-        let eventNameSpot = document.getElementById('eventName')
-        eventNameSpot.innerText = response.data[0].name
-    })
+        .then((response) => {
+            let eventNameSpot = document.getElementById('eventName')
+            eventNameSpot.innerText = response.data[0].name
+        })
 }
