@@ -1,4 +1,4 @@
-const url = 'http://localhost:3000'
+const url = 'https://hackateam-cat.herokuapp.com'
 
 let teamsEventData
 let backButton = document.getElementById('backEvents')
@@ -122,7 +122,7 @@ function createCard(event, team) {
         axios.get(`${url}/teams/${teamId}`)
             .then((response) => {
                 createYourTeamCard(teamId, event.name)
-                // hide events 
+                // hide events
                 let eventTeam = document.getElementById('otherTeamsDiv')
                 eventTeam.classList.remove('hidden')
                 eventRow.classList.add('hidden')
@@ -281,7 +281,7 @@ let createOtherTeamsCards = (team, eventName) => {
         memberUl.appendChild(memberLi)
 
         let memberEmail = document.createElement('p')
-        memberEmail.innerText = member.email 
+        memberEmail.innerText = member.email
         memberUl.appendChild(memberEmail)
 
         let memberSkillUl = document.createElement('ul')

@@ -1,4 +1,4 @@
-const url = 'http://localhost:3000'
+const url = 'https://hackateam-cat.herokuapp.com'
 
 let teamId, teamData, memberData
 let allPossibleSkills = []

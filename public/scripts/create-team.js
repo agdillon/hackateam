@@ -1,9 +1,9 @@
-const url = 'http://localhost:3000'
+const url = 'https://hackateam-cat.herokuapp.com'
 let skillsToAdd = []
 let allSkills
 let eventId = localStorage.getItem('eventID')
 document.addEventListener('DOMContentLoaded', () => {
-    // *****************TO DO************************************  
+    // *****************TO DO************************************
     // get user id via local storage
     let userId = 1
     getEventInfo()
@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
             checkBox.classList.remove('true')
         }
     })
-    // on submit of form post team info 
+    // on submit of form post team info
     const postForm = document.getElementById('post-form')
     postForm.addEventListener('submit', (event) => {
         event.preventDefault()
@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         teamInfo.team_size_limit = parseInt(teamInfo.team_size_limit)
         postTeam(teamInfo, allSkills)
-        
+
     })
 
 })

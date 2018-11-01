@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 });
 
 //make the backend live and create global url to access api
-let url = 'http://localhost:3000'
+let url = 'https://hackateam-cat.herokuapp.com'
 
 //grab elements from events and display them on the website
 function grabEventInfoAndDisplay() {
