@@ -27,6 +27,20 @@ app.use(cookieSession({ secret: process.env.COOKIE_SECRET, httpOnly: false }))
 // passport middleware
 app.use(passport.initialize())
 
+passport.serializeUser((user, done) => {
+  done(null, user.id)
+})
+
+passport.deserializeUser((id, done) => {
+  // what do i need to do when user visits the site and already has a cookie?
+  // i.e. what needs to be stored in req.user?
+  knex('users').first().where('id', id)
+    .then(user => {
+      done(null, user)
+    })
+    .catch(err => next(err))
+})
+
 passport.use(new GitHubStrategy(
   {
     clientID: process.env.CLIENT_ID,
@@ -69,22 +83,7 @@ passport.use(new GitHubStrategy(
   }
 ))
 
-// session/cookie stuff
 app.use(passport.session())
-
-passport.serializeUser((user, done) => {
-  done(null, user.id)
-})
-
-passport.deserializeUser((id, done) => {
-  // what do i need to do when user visits the site and already has a cookie?
-  // i.e. what needs to be stored in req.user?
-  knex('users').first().where('id', id)
-    .then(user => {
-      done(null, user)
-    })
-    .catch(err => next(err))
-})
 
 app.use(express.json())
 app.use(cookieParser())
