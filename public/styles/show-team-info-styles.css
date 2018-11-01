@@ -24,8 +24,9 @@ h2 {
 }
 
 h3 {
+  display:block;
   font-weight: lighter;
-  font-size: 30px;
+  font-size: 20px;
   padding-top:6px;
   color:black;
   font-family: labelFont;
@@ -33,6 +34,10 @@ h3 {
 
 div {
   text-align: center;
+}
+
+textarea {
+  display:block;
 }
 
 ul {
@@ -52,7 +57,7 @@ ul {
 text-align: center;
 }
 
-.card{
+.card {
   margin: 20px;
   font-size: 20px;
   font-family: sans-serif;

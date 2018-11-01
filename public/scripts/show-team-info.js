@@ -66,8 +66,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // get form data
     let description = document.getElementById('team-des').value
+    let teamSize = document.getElementById('team-size').value
+    let hasIdea = document.getElementById('has-idea').value
 
-    axios.put(`${url}/teams/${teamId}`, { description })
+    axios.put(`${url}/teams/${teamId}`, { description, team_size_limit: teamSize, idea: hasIdea })
       .catch((err) => { console.log(err) })
   })
 })
