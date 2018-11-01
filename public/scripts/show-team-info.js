@@ -8,7 +8,7 @@ const addSkillBtn = document.getElementById('add-skill')
 
 document.addEventListener('DOMContentLoaded', () => {
     // local storage get team id wanted
-    teamId = 1
+    teamId = localStorage.getItem('edit-team-Id')
 
     getTeam()
 
