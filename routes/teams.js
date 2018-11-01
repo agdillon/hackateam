@@ -39,7 +39,7 @@ router.get('/:id', (req, res, next) => {
                         .where('id', req.params.id)
                         .then((teamData) => {
                             return knex('skills_team_wanted')
-                                .select('skills_team_wanted.team_id', 'skills.type')
+                                .select('skills_team_wanted.team_id', 'skills.type', 'skills.id')
                                 .join('skills', 'skills.id', 'skills_team_wanted.skill_id')
                                 .where('team_id', req.params.id)
                                 .then((skillsWantedData) => {

@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const addMemEmail = document.getElementById('addEmail')
     addMemberBtn.addEventListener('click', () => {
         email = addMemEmail.value
-        let teamId = addMemberBtn.getAttribute('data-id')
+        // teamId = addMemberBtn.getAttribute('data-id')
         addMemberGroup(teamId, email)
         location.reload()
     })
@@ -40,8 +40,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (allPossibleSkills.includes(skillAdded.type)) {
       axios.post(`${url}/skills`, { type: skillAdded.type, team_id: teamId })
         .then(response => {
-          skillAdded.id = response.data.skillsData.id
-          createChip(skillAdded)
+          console.log(response.data)
+          skillAdded.id = response.data.skillData.id
+          createSkillChips(skillAdded)
         })
         .catch((err) => { console.log(err) })
     }
@@ -50,13 +51,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
       axios.post(`${url}/skills/new`, { type: skillAdded.type, team_id: teamId })
         .then(response => {
-          skillAdded.id = response.data.skillsData.id
-          createChip(skillAdded)
+          skillAdded.id = response.data.skillData.id
+          createSkillChips(skillAdded)
         })
         .catch((err) => { console.log(err) })
     }
 
     skillInput.value = ''
+  })
+
+  // on submit, get info out of form and update team in database
+  document.getElementById('edit-team').addEventListener('submit', (ev) => {
+    ev.preventDefault()
+
+    // get form data
+    let description = document.getElementById('team-des').value
+
+    axios.put(`${url}/teams/${teamId}`, { description })
+      .catch((err) => { console.log(err) })
   })
 })
 
@@ -64,7 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
 let getTeam = () => {
     axios.get(`${url}/teams/${teamId}`)
     .then((response) => {
-        console.log(response.data)
+        // console.log(response.data)
         teamData = response.data.teamData
         getEvent(teamData[0].event_id)
         const description = document.getElementById('team-des')
@@ -85,7 +97,7 @@ let getTeam = () => {
 let getEvent = (eventId) => {
     axios.get(`${url}/events/${eventId}`)
     .then((response) => {
-        console.log(response.data)
+        // console.log(response.data)
         appendEvent(response.data)
     })
 }
@@ -93,7 +105,7 @@ let getEvent = (eventId) => {
 let addMemberGroup = (teamId, email) => {
     axios.post(`${url}/teams/${teamId}/addMember`, { email })
     .then((response) => {
-        console.log(response)
+        // console.log(response)
     })
 }
 
@@ -176,7 +188,10 @@ let createSkillChips = (skill) => {
     let type = document.getElementById(skill.type)
     type.parentNode.removeChild(type)
 
+    console.log(skill)
+
     axios.delete(`${url}/skills/${skill.id}`, { data: { team_id: teamId } })
+      .then(res => { console.log(res) })
       .catch(err => { console.log(err) })
   })
 }
