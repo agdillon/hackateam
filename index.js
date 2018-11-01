@@ -63,9 +63,13 @@ passport.use(new GitHubStrategy(
       lastName = fullName.slice(firstSpaceIndex + 1)
     }
 
+    console.log("passport callback function")
+    console.log(profile)
+
     knex('users').first().where('email', profile.emails[0].value)
       .then(user => {
         // check db to see if user already exists (by email)
+        console.log("user retrieved from knex", user)
         if (user) {
           done(null, user)
         }
@@ -75,7 +79,7 @@ passport.use(new GitHubStrategy(
             first_name: firstName, last_name: lastName, user_picture_url: profile._json.avatar_url })
             .returning('*')
             .then(user => {
-              console.log(user)
+              console.log("user added to knex", user)
               done(null, user)
             })
             .catch(err => next(err))
