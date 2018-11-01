@@ -29,6 +29,7 @@ app.use(cookieSession({ secret: process.env.COOKIE_SECRET, httpOnly: false }))
 app.use(passport.initialize())
 
 passport.serializeUser((user, done) => {
+  console.log("serialize user", user.id)
   done(null, user.id)
 })
 
@@ -37,6 +38,7 @@ passport.deserializeUser((id, done) => {
   // i.e. what needs to be stored in req.user?
   knex('users').first().where('id', id)
     .then(user => {
+      console.log("deserialize user", user)
       done(null, user)
     })
     .catch(err => next(err))
@@ -64,12 +66,11 @@ passport.use(new GitHubStrategy(
     }
 
     console.log("passport callback function")
-    console.log(profile)
 
     knex('users').first().where('email', profile.emails[0].value)
       .then(user => {
         // check db to see if user already exists (by email)
-        console.log("user retrieved from knex", user)
+        console.log("user retrieved from knex in callback", user)
         if (user) {
           done(null, user)
         }
@@ -79,7 +80,7 @@ passport.use(new GitHubStrategy(
             first_name: firstName, last_name: lastName, user_picture_url: profile._json.avatar_url })
             .returning('*')
             .then(user => {
-              console.log("user added to knex", user)
+              console.log("user added to knex in callback", user)
               done(null, user)
             })
             .catch(err => next(err))
@@ -105,7 +106,10 @@ app.get('/users/auth',
     successRedirect: 'https://hackateam-cat.herokuapp.com/html/user-profile.html',
     failureRedirect: 'https://hackateam-cat.herokuapp.com/',
     scope: 'user:email'
-  }))
+  }), (req, res) => {
+    console.log("req.user", req.user)
+  }
+)
 
 // routers
 app.use('/users', usersRouter)
