@@ -81,7 +81,7 @@ passport.use(new GitHubStrategy(
             .returning('*')
             .then(user => {
               console.log("user added to knex in callback", user)
-              done(null, user)
+              done(null, user[0])
             })
             .catch(err => next(err))
         }
