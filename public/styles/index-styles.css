@@ -18,8 +18,8 @@ p{
 background:
        /* top, transparent black, faked with gradient */
        linear-gradient(
-         rgba(0, 0, 0, 0.5),
-         rgba(0, 0, 0, 0.5)
+         rgba(0, 0, 0, 0.6),
+         rgba(0, 0, 0, 0.6)
        ),
        /* bottom, image */
        url('https://images.pexels.com/photos/34676/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=2&h=3500') fixed center no-repeat;
@@ -34,4 +34,26 @@ h1{
 }
 body{
   background-color: #393f4d
+}
+#brand{
+  color: white;
+  font-family: labelFont;
+}
+#signup{
+  font-family: labelFont;
+  color: white;
+  font-size: 20px;
+  padding-top: 5%;
+}
+#signup:hover{
+  -webkit-stroke-width: 5.3px;
+  -webkit-stroke-color: #FFFFFF;
+  -webkit-fill-color: #FFFFFF;
+  text-shadow: 1px 0px 20px blue;
+}
+a:hover{
+  -webkit-stroke-width: 5.3px;
+  -webkit-stroke-color: #FFFFFF;
+  -webkit-fill-color: #FFFFFF;
+  text-shadow: 1px 0px 20px blue;
 }

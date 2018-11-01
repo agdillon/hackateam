@@ -1,6 +1,10 @@
 @font-face {
-    font-family: font1;
-    src: url("../styles/fonts/NEUROPOB.ttf");
+    font-family: 'h1Font'; /*a name to be used later*/
+    src: url('./fonts/Oswald/Oswald-Bold.ttf'); /*dir to font*/
+}
+@font-face {
+    font-family: 'labelFont'; /*a name to be used later*/
+    src: url('./fonts/Roboto/Roboto-Regular.ttf'); /*dir to font*/
 }
 h2{
   font-size: 23px;
@@ -47,4 +51,17 @@ body{
 
 .input-group {
   margin: 20px 0;
+}
+#brand{
+  color: white;
+  font-family: labelFont;
+}
+#navbarDropdownMenuLink{
+  color: white;
+}
+a:hover{
+  -webkit-stroke-width: 5.3px;
+  -webkit-stroke-color: #FFFFFF;
+  -webkit-fill-color: #FFFFFF;
+  text-shadow: 1px 0px 20px blue;
 }
