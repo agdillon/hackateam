@@ -1,6 +1,6 @@
 const url = 'https://hackateam-cat.herokuapp.com'
 
-let teamsEventData
+// let teamsEventData
 let backButton = document.getElementById('backEvents')
 // code from jsperf.com
 function getCookieValue(a) {
@@ -16,15 +16,17 @@ let userId = JSON.parse(atob(getCookieValue('session'))).passport.user
 
 document.addEventListener('DOMContentLoaded', () => {
 
-
-
-    getUserTeams()
+    // getUserTeams()
     fillEventInfo()
 
     backButton.addEventListener('click', () => {
         // hide your team info
         let teamsSpots = document.getElementById('otherTeamsDiv')
         teamsSpots.classList.add('hidden')
+        let myteamInfoSpot = document.getElementById('myTeamInfo')
+        while (myteamInfoSpot.firstChild) {
+            myteamInfoSpot.removeChild(myteamInfoSpot.firstChild)
+        }
         // hide/delete other team stuff
         let otherTeamDiv = document.getElementById('otherTeams')
         while (otherTeamDiv.firstChild) {
@@ -43,25 +45,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // auto fill event cards
 let fillEventInfo = () => {
-    axios.get(`${url}/users/${userId}/events`)
+    axios.get(`${url}/users/${userId}/teams`)
         .then((response) => {
-            let events = response.data
-            events.forEach((event) => {
-                let team = teamsEventData.find((team) => {
-                    return team.event_id === event.id
+            let teamsEventData = response.data
+            axios.get(`${url}/users/${userId}/events`)
+                .then((response) => {
+                    let events = response.data
+                    events.forEach((event) => {
+                        let team = teamsEventData.find((team) => {
+                            return team.event_id === event.id
+                        })
+                        createCard(event, team)
+                    })
                 })
-                createCard(event, team)
-            })
         })
 }
 
 // get all teams user is associated with
-let getUserTeams = () => {
-    axios.get(`${url}/users/${userId}/teams`)
-        .then((response) => {
-            teamsEventData = response.data
-        })
-}
+// let getUserTeams = () => {
+//     axios.get(`${url}/users/${userId}/teams`)
+//         .then((response) => {
+//             teamsEventData = response.data
+//         })
+// }
 
 
 /******TO DO **********/
