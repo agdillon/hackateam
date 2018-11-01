@@ -14,22 +14,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // auto fill event cards
 // needs edit to fill only events associated with teams user is on
+let teamsEventData
 let fillEventInfo = () => {
     axios.get(`${url}/users/${userId}/events`)
     .then((response) => {
         console.log(response.data)
+        console.log(teamsEventData)
         let events = response.data
         events.forEach((event) => {
-            createCard(event)
+            let team = teamsEventData.find((team) => {
+                return team.event_id === event.id
+            })
+            createCard(event, team)
         })
     })
 }
 
 // get all teams user is associated with
-let getUserTeams = () => {
+let getUserTeams = (eventId) => {
     axios.get(`${url}/users/${userId}/teams`)
     .then((response) => {
-        console.log(response.data)
+        // console.log(response.data)
+        teamsEventData = response.data
     })
 }
 
@@ -41,7 +47,7 @@ let getUserTeams = () => {
 // need local storage set for navigating to edit-team page
 
 
-function createCard(event) {
+function createCard(event, team) {
     //creat all elements to make a card dynamically
     let card = document.createElement('div')
     let cardImg = document.createElement('img')
@@ -63,7 +69,8 @@ function createCard(event) {
     cardTitle.innerText = event.name
     cardText.classList.add('card-text')
   
-    cardButton.setAttribute('data-id', event.id)
+    cardButton.setAttribute('data-eventId', event.id)
+    cardButton.setAttribute('data-teamId', team.id)
   
     let date = event.date.split('T')
     cardDate.innerText = date[0]
@@ -92,7 +99,11 @@ function createCard(event) {
       /*********TO DO ************/
         // on click of event card
         // show your team info on left (including skills wanted and skills of team members)
-
+        let teamId = e.target.getAttribute('data-teamId')
+        axios.get(`${url}/teams/${teamId}`)
+        .then((response) => {
+            console.log(response.data)
+        })
         // needs manage teammate buttons and edit button linking to other pages
         // generate teams also going to event
         // hide events
@@ -101,7 +112,20 @@ function createCard(event) {
   }
 
   // build your team card
-  let createYourTeamCard = () => {
-      
+  let createYourTeamCard = (teamInfo, eventName) => {
+      let eventNameSpot = document.getElementById('myTeamEventName')
+      eventNameSpot.innerText = eventName
+      let teamInfoSpot = document.getElementById('myTeamInfo')
+      teamInfoSpot
   }
   // build other teams cards
+  let createOtherTeamsCards = () => {
+      let otherTeamDiv = document.getElementById('otherTeams')
+  }
+//   <div class="card border-secondary">
+//                 <div class="card-body">
+//                   <h5 class="card-title">Card title</h5>
+//                   <p class="card-text">This is another card with title and supporting text below. This card has some
+//                     additional content to make it slightly taller overall.</p>
+//                 </div>
+//               </div>
