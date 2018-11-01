@@ -1,7 +1,7 @@
 const url = 'http://localhost:3000'
 
 let teamsEventData
-
+let backButton = document.getElementById('backEvents')
 // code from jsperf.com
 function getCookieValue(a) {
     b = '; ' + document.cookie;
@@ -20,14 +20,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
     getUserTeams()
     fillEventInfo()
+
+    backButton.addEventListener('click', () => {
+        // hide your team info
+        let teamsSpots = document.getElementById('otherTeamsDiv')
+        teamsSpots.classList.add('hidden')
+        // hide/delete other team stuff
+        let otherTeamDiv = document.getElementById('otherTeams')
+        while (otherTeamDiv.firstChild) {
+            otherTeamDiv.removeChild(otherTeamDiv.firstChild)
+        }
+        // unhide back events
+        let eventRow = document.getElementById('event-row')
+        eventRow.classList.remove('hidden')
+        // hide back button
+        backButton.classList.add('hidden')
+        // unhide event header
+        let eventHeader = document.getElementById('eventsInvolved')
+        eventHeader.classList.remove('hidden')
+    })
 })
 
 // auto fill event cards
 let fillEventInfo = () => {
     axios.get(`${url}/users/${userId}/events`)
         .then((response) => {
-            console.log(response.data)
-            console.log(teamsEventData)
             let events = response.data
             events.forEach((event) => {
                 let team = teamsEventData.find((team) => {
@@ -42,7 +59,6 @@ let fillEventInfo = () => {
 let getUserTeams = () => {
     axios.get(`${url}/users/${userId}/teams`)
         .then((response) => {
-            // console.log(response.data)
             teamsEventData = response.data
         })
 }
@@ -50,7 +66,6 @@ let getUserTeams = () => {
 
 /******TO DO **********/
 // search/filter bar to find/filter team containing skills you want/input (team member skills)
-// back button to click on new event and clear team info
 
 
 function createCard(event, team) {
@@ -109,21 +124,25 @@ function createCard(event, team) {
                 createYourTeamCard(teamId, event.name)
                 // hide events 
                 let eventTeam = document.getElementById('otherTeamsDiv')
-                eventRow.classList.add('hidden')
                 eventTeam.classList.remove('hidden')
+                eventRow.classList.add('hidden')
 
                 axios.get(`${url}/teams/event/${teamId}`)
                     .then((response) => {
-                        console.log(response.data)
-                        let teamsByEvent = response.data
+                        let teamsByEvent = response.data.filter((team) => {
+                            return team.id !== parseInt(teamId)
+                        })
                         // filter out your team
                         teamsByEvent.forEach((team) => {
                             createOtherTeamsCards(team, event.name)
                         })
+                        let eventHeader = document.getElementById('eventsInvolved')
+                        eventHeader.classList.add('hidden')
+
+                        backButton.classList.remove('hidden')
                     })
             })
 
-        // generate teams also going to event
 
     })
 
@@ -131,9 +150,12 @@ function createCard(event, team) {
 
 // build your team card
 let createYourTeamCard = (teamId, eventName) => {
+    let teamsSpots = document.getElementById('otherTeamsDiv')
+    teamsSpots.classList.remove('hidden')
+    let myteamInfoSpot = document.getElementById('myTeamInfo')
     let eventNameSpot = document.getElementById('myTeamEventName')
     eventNameSpot.innerText = eventName
-    let myteamInfoSpot = document.getElementById('myTeamInfo')
+
     // get all specific team info
     axios.get(`${url}/teams/${teamId}`)
         .then((response) => {
@@ -216,6 +238,9 @@ let createYourTeamCard = (teamId, eventName) => {
 // build other teams cards
 let createOtherTeamsCards = (team, eventName) => {
     let otherTeamDiv = document.getElementById('otherTeams')
+    // while (otherTeamDiv.firstChild) {
+    //     otherTeamDiv.removeChild(otherTeamDiv.firstChild)
+    // }
 
     let div = document.createElement('div')
     div.classList.add('card')
