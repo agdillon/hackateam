@@ -1,29 +1,26 @@
 h1 {
-position: relative;
-float: none;
-color: black;
-font-size: 40px;
-font-family: monospace;
-font-weight: bold;
-letter-spacing: -1px;
-line-height: 1;
-text-align: center;
-margin-top: 40px;
-
-}
-.edit-profile {
   position: relative;
   float: none;
+  color: black;
+  font-size: 40px;
+  font-family: monospace;
+  font-weight: bold;
+  letter-spacing: -1px;
+  line-height: 1;
   text-align: center;
-  width: 100%;
-  max-width: 330px;
-  padding: 15px;
-  margin-top: 320px;
+  margin-top: 40px;
 }
 
-.chip {
-  margin-top:10px;
-  margin-bottom:10px;
+label {
+  font-weight: bold;
+  font-size: 18px;
+  padding-top:6px;
+  color:black;
+  font-family: monospace;
+}
+
+body {
+   background-size: cover;
 }
 
 form {
@@ -32,23 +29,22 @@ form {
   left: 50%;
   transform: translate(-50%, -50%);
 }
-#sign-in{
+
+.chip {
+  margin-top: 10px;
+}
+
+#sign-in {
   font-weight: bold;
   font-size: 2em;
   color: black;
   font-family: monospace;
 }
-#welcomeMessage{
+
+#welcomeMessage {
   margin-top: 25px;
 }
-label {
-  font-weight: bold;
-  font-size: 18px;
-    padding-top:6px;
-    color:black;
-    font-family: monospace;
-}
 
-body{
-   background-size: cover;
+#submit {
+  margin-top: 20px;
 }

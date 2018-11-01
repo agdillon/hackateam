@@ -54,6 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const addButton = document.getElementById('add-button')
   const chipsDiv = document.getElementById('chipsDiv')
 
+  // get userId out of cookie
   let userId = JSON.parse(atob(getCookieValue('session'))).passport.user
 
   // get existing user info from database and fill in form
@@ -62,6 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
       let user = response.data
 
       // populate form with current user data
+      document.getElementById('userPicture').setAttribute('src', user.user_picture_url)
       document.getElementById('inputFirstName').value = user.first_name
       document.getElementById('inputLastName').value = user.last_name
       document.getElementById('inputURL').value = user.portfolio_url
