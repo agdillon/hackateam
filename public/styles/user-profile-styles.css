@@ -67,3 +67,13 @@ a:hover{
   -webkit-fill-color: #FFFFFF;
   text-shadow: 1px 0px 20px blue;
 }
+#userPicture{
+  border: 2px solid white;
+  border-radius: 25px;
+  display: block;
+  margin: 0 auto;
+  margin-top: 50px;
+  margin-bottom: 10px;
+  width: 150px;
+  height: 150px;
+}

@@ -63,3 +63,7 @@ a:hover{
   -webkit-fill-color: #FFFFFF;
   text-shadow: 1px 0px 20px blue;
 }
+.card{
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
