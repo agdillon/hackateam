@@ -37,3 +37,7 @@ img{
     -webkit-fill-color: #FFFFFF;
     text-shadow: 1px 0px 20px blue;
   }
+  
+  .hidden {
+    display: none;
+  }
