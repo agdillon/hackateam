@@ -73,7 +73,7 @@ passport.use(new GitHubStrategy(
         else {
           knex('users').insert({ key: uuidv4(), email: profile.emails[0].value,
             first_name: firstName, last_name: lastName, user_picture_url: profile._json.avatar_url })
-            .returning()
+            .returning('*')
             .then(user => {
               console.log(user)
               done(null, user)
