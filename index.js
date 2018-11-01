@@ -37,7 +37,6 @@ passport.deserializeUser((id, done) => {
   // i.e. what needs to be stored in req.user?
   knex('users').first().where('id', id)
     .then(user => {
-      console.log('deserializeUser', id)
       done(null, user)
     })
     .catch(err => { next(err) } )
