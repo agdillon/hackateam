@@ -1,25 +1,63 @@
 const url = 'http://localhost:3000'
-let teamId
-let teamData
-let memberData
-const addBtn = document.getElementById('add-button')
+
+let teamId, teamData, memberData
+let allPossibleSkills = []
+
+const addMemberBtn = document.getElementById('add-button')
+const addSkillBtn = document.getElementById('add-skill')
+
 document.addEventListener('DOMContentLoaded', () => {
     // local storage get team id wanted
     teamId = 1
-    //
+
     getTeam()
 
     // add member functionality
     const addMemEmail = document.getElementById('addEmail')
-    addBtn.addEventListener('click', () => {
+    addMemberBtn.addEventListener('click', () => {
         email = addMemEmail.value
-        let emailObj = {
-            email: email
-        }
-        let teamId = addBtn.getAttribute('data-id')
-        addMemberGroup(teamId, emailObj)
+        let teamId = addMemberBtn.getAttribute('data-id')
+        addMemberGroup(teamId, email)
         location.reload()
     })
+
+  // get list of all possible skills and append to datalist
+  axios.get(`${url}/skills`)
+    .then(response => {
+      allPossibleSkills = response.data.map(skillObj => skillObj.type)
+      let skillsDatalist = document.getElementById('skills')
+      allPossibleSkills.forEach(skill => {
+        let option = document.createElement('option')
+        option.setAttribute('value', skill)
+        skillsDatalist.appendChild(option)
+      })
+    })
+
+  addSkillBtn.addEventListener('click', () => {
+    let skillInput = document.querySelector(`[list='skills']`)
+    let skillAdded = { type: skillInput.value }
+
+    if (allPossibleSkills.includes(skillAdded.type)) {
+      axios.post(`${url}/skills`, { type: skillAdded.type, team_id: teamId })
+        .then(response => {
+          skillAdded.id = response.data.skillsData.id
+          createChip(skillAdded)
+        })
+        .catch((err) => { console.log(err) })
+    }
+    else {
+      allPossibleSkills.push(skillAdded.type)
+
+      axios.post(`${url}/skills/new`, { type: skillAdded.type, team_id: teamId })
+        .then(response => {
+          skillAdded.id = response.data.skillsData.id
+          createChip(skillAdded)
+        })
+        .catch((err) => { console.log(err) })
+    }
+
+    skillInput.value = ''
+  })
 })
 
 // get team requested info
@@ -31,7 +69,7 @@ let getTeam = () => {
         getEvent(teamData[0].event_id)
         const description = document.getElementById('team-des')
         description.innerText = teamData[0].description
-        addBtn.setAttribute('data-id', teamData[0].id)
+        addMemberBtn.setAttribute('data-id', teamData[0].id)
         memberData = response.data.userData
         skillsData = response.data.skillsWantedData
         skillsData.forEach((skill) => {
@@ -53,7 +91,7 @@ let getEvent = (eventId) => {
 }
 
 let addMemberGroup = (teamId, email) => {
-    axios.post(`${url}/teams/${teamId}/addMember`, email)
+    axios.post(`${url}/teams/${teamId}/addMember`, { email })
     .then((response) => {
         console.log(response)
     })
@@ -92,8 +130,6 @@ let appendMembers = (member) => {
     cardBody.appendChild(ulList)
     let skillList = member.userSkills
 
-
-
     skillList.forEach(skill => {
         let li = document.createElement('li')
         li.innerText = skill.type
@@ -116,18 +152,33 @@ let appendMembers = (member) => {
     // add event listener to delete button
     deleteBtn.addEventListener('click', (event) => {
         let userId = event.target.getAttribute('data-id')
-        let teamId = addBtn.getAttribute('data-id')
+        let teamId = addMemberBtn.getAttribute('data-id')
         deleteMember(teamId, userId)
     })
 }
 
 let createSkillChips = (skill) => {
-    const chipsDiv = document.getElementById('chipsDiv')
-    let chipDiv = document.createElement('div')
-    chipDiv.classList.add('chip')
-    chipDiv.innerText = skill.type
-    chipDiv.setAttribute('id', skill.type)
-    chipsDiv.appendChild(chipDiv)
+  // skill is an object with attributes type and id
+
+  const chipsDiv = document.getElementById('chipsDiv')
+  let chipDiv = document.createElement('div')
+  chipDiv.classList.add('chip')
+  chipDiv.innerText = skill.type
+  chipDiv.setAttribute('id', skill.type)
+  let closeSpan = document.createElement('span')
+  closeSpan.classList.add('closebtn')
+  closeSpan.innerHTML = '&times;'
+  chipDiv.appendChild(closeSpan)
+  chipsDiv.appendChild(chipDiv)
+
+  // add event listener to delete
+  closeSpan.addEventListener('click', (event) => {
+    let type = document.getElementById(skill.type)
+    type.parentNode.removeChild(type)
+
+    axios.delete(`${url}/skills/${skill.id}`, { data: { team_id: teamId } })
+      .catch(err => { console.log(err) })
+  })
 }
 
 let deleteMember = (teamId, userId) => {
