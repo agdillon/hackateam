@@ -4,9 +4,9 @@ let teamsEventData
 
 // code from jsperf.com
 function getCookieValue(a) {
-  b = '; ' + document.cookie;
-  c = b.split('; ' + a + '=');
-  return !!(c.length - 1) ? c.pop().split(';').shift() : '';
+    b = '; ' + document.cookie;
+    c = b.split('; ' + a + '=');
+    return !!(c.length - 1) ? c.pop().split(';').shift() : '';
 }
 
 // temporary hardcoding of userId
@@ -25,34 +25,32 @@ document.addEventListener('DOMContentLoaded', () => {
 // auto fill event cards
 let fillEventInfo = () => {
     axios.get(`${url}/users/${userId}/events`)
-    .then((response) => {
-        console.log(response.data)
-        console.log(teamsEventData)
-        let events = response.data
-        events.forEach((event) => {
-            let team = teamsEventData.find((team) => {
-                return team.event_id === event.id
+        .then((response) => {
+            console.log(response.data)
+            console.log(teamsEventData)
+            let events = response.data
+            events.forEach((event) => {
+                let team = teamsEventData.find((team) => {
+                    return team.event_id === event.id
+                })
+                createCard(event, team)
             })
-            createCard(event, team)
         })
-    })
 }
 
 // get all teams user is associated with
 let getUserTeams = () => {
     axios.get(`${url}/users/${userId}/teams`)
-    .then((response) => {
-        // console.log(response.data)
-        teamsEventData = response.data
-    })
+        .then((response) => {
+            // console.log(response.data)
+            teamsEventData = response.data
+        })
 }
 
 
 /******TO DO **********/
 // search/filter bar to find/filter team containing skills you want/input (team member skills)
 // back button to click on new event and clear team info
-// need local storage set for navigating to manage-member/show page
-// need local storage set for navigating to edit-team page
 
 
 function createCard(event, team) {
@@ -103,117 +101,198 @@ function createCard(event, team) {
 
     //add event listener to button on click to be passed onto another function show dynamically added event
     cardButton.addEventListener('click', (e) => {
-    //   localStorage.setItem('event-search-id', event.id)
-      /*********TO DO ************/
         // on click of event card
         // show your team info on left (including skills wanted and skills of team members)
         let teamId = e.target.getAttribute('data-teamId')
         axios.get(`${url}/teams/${teamId}`)
-        .then((response) => {
-            createYourTeamCard(teamId, event.name)
-        })
-        // needs manage teammate buttons and edit button linking to other pages
-        
+            .then((response) => {
+                createYourTeamCard(teamId, event.name)
+                // hide events 
+                let eventTeam = document.getElementById('otherTeamsDiv')
+                eventRow.classList.add('hidden')
+                eventTeam.classList.remove('hidden')
+
+                axios.get(`${url}/teams/event/${teamId}`)
+                    .then((response) => {
+                        console.log(response.data)
+                        let teamsByEvent = response.data
+                        // filter out your team
+                        teamsByEvent.forEach((team) => {
+                            createOtherTeamsCards(team, event.name)
+                        })
+                    })
+            })
+
         // generate teams also going to event
 
-        // hide events
-        eventRow.hidden = true
     })
 
-  }
+}
 
-  // build your team card
-  let createYourTeamCard = (teamId, eventName) => {
-      let eventNameSpot = document.getElementById('myTeamEventName')
-      eventNameSpot.innerText = eventName
-      let myteamInfoSpot = document.getElementById('myTeamInfo')
-      // get all specific team info
-      axios.get(`${url}/teams/${teamId}`)
-      .then((response) => {
-        // append data
-        let teamInfo = response.data.teamData[0]
-        let memberInfo = response.data.userData
-        let skillsWantedInfo = response.data.skillsWantedData
-        // create members div
-        let membersDiv = document.createElement('div')
-        myteamInfoSpot.appendChild(membersDiv)
+// build your team card
+let createYourTeamCard = (teamId, eventName) => {
+    let eventNameSpot = document.getElementById('myTeamEventName')
+    eventNameSpot.innerText = eventName
+    let myteamInfoSpot = document.getElementById('myTeamInfo')
+    // get all specific team info
+    axios.get(`${url}/teams/${teamId}`)
+        .then((response) => {
+            // append data
+            let teamInfo = response.data.teamData[0]
+            let memberInfo = response.data.userData
+            let skillsWantedInfo = response.data.skillsWantedData
+            // create members div
+            let membersDiv = document.createElement('div')
+            myteamInfoSpot.appendChild(membersDiv)
 
-        let memberHeading = document.createElement('h5')
-        memberHeading.innerText = 'Members:'
-        membersDiv.appendChild(memberHeading)
+            let memberHeading = document.createElement('h5')
+            memberHeading.innerText = 'Members:'
+            membersDiv.appendChild(memberHeading)
 
-        let memberUl = document.createElement('ul')
-        membersDiv.appendChild(memberUl)
+            let memberUl = document.createElement('ul')
+            membersDiv.appendChild(memberUl)
 
-        memberInfo.forEach((member) => {
-          let memberLi = document.createElement('li')
-          memberLi.innerText = `${member.first_name} ${member.last_name}`
-          memberUl.appendChild(memberLi)
+            memberInfo.forEach((member) => {
+                let memberLi = document.createElement('li')
+                memberLi.innerText = `${member.first_name} ${member.last_name}`
+                memberUl.appendChild(memberLi)
 
-          let memberSkillUl = document.createElement('ul')
-          memberLi.appendChild(memberSkillUl)
+                let memberSkillUl = document.createElement('ul')
+                memberLi.appendChild(memberSkillUl)
 
-          member.userSkills.forEach((skill) => {
+                member.userSkills.forEach((skill) => {
+                    let skillLi = document.createElement('li')
+                    skillLi.innerText = skill.type
+                    memberSkillUl.appendChild(skillLi)
+                })
+            })
+            // create skills div
+            let skillsDiv = document.createElement('div')
+            myteamInfoSpot.appendChild(skillsDiv)
+
+            let skillsHeader = document.createElement('h5')
+            skillsHeader.innerText = 'Skills Wanted:'
+            skillsDiv.appendChild(skillsHeader)
+
+            let skillsUl = document.createElement('ul')
+            skillsDiv.appendChild(skillsUl)
+
+            skillsWantedInfo.forEach((skill) => {
+                let skillWantedLi = document.createElement('li')
+                skillWantedLi.innerText = skill.type
+                skillsUl.appendChild(skillWantedLi)
+            })
+            // create description div
+            let descriptionDiv = document.createElement('div')
+            myteamInfoSpot.appendChild(descriptionDiv)
+
+            let descriptionHeader = document.createElement('h5')
+            descriptionHeader.innerText = 'Description:'
+            descriptionDiv.appendChild(descriptionHeader)
+
+            let descriptionPara = document.createElement('p')
+            descriptionPara.innerText = teamInfo.description
+            descriptionDiv.appendChild(descriptionPara)
+            // create manage button
+            // put teamid in local storage then go to show-team-info.html
+            let manageBtnDiv = document.createElement('div')
+            myteamInfoSpot.appendChild(manageBtnDiv)
+
+            let manageBtn = document.createElement('button')
+            manageBtn.setAttribute('type', 'button')
+            manageBtn.setAttribute('data-teamId', teamInfo.id)
+            manageBtn.classList.add('btn')
+            manageBtn.classList.add('btn-outline-secondary')
+            manageBtn.innerText = 'Manage'
+            manageBtnDiv.appendChild(manageBtn)
+            manageBtn.addEventListener('click', (e) => {
+                let teamStoreId = e.target.getAttribute('data-teamId')
+                localStorage.setItem('edit-team-Id', teamStoreId)
+                location.href = "show-team-info.html"
+            })
+        })
+
+}
+// build other teams cards
+let createOtherTeamsCards = (team, eventName) => {
+    let otherTeamDiv = document.getElementById('otherTeams')
+
+    let div = document.createElement('div')
+    div.classList.add('card')
+    div.classList.add('border-secondary')
+    otherTeamDiv.appendChild(div)
+
+    let cardBody = document.createElement('div')
+    cardBody.classList.add('card-body')
+    div.appendChild(cardBody)
+
+    let header = document.createElement('h5')
+    header.classList.add('card-title')
+    header.innerText = eventName
+    cardBody.appendChild(header)
+
+    let divInfo = document.createElement('div')
+    divInfo.classList.add('card-text')
+    cardBody.appendChild(divInfo)
+
+    let teamInfo = team
+    let memberInfo = team.members
+    let skillsWantedInfo = team.skillsWanted
+    // create members div
+    let membersDiv = document.createElement('div')
+    divInfo.appendChild(membersDiv)
+
+    let memberHeading = document.createElement('h5')
+    memberHeading.innerText = 'Members:'
+    membersDiv.appendChild(memberHeading)
+
+
+    let memberUl = document.createElement('ul')
+    membersDiv.appendChild(memberUl)
+
+    memberInfo.forEach((member) => {
+        let memberLi = document.createElement('li')
+        memberLi.innerText = `${member.first_name} ${member.last_name}`
+        memberUl.appendChild(memberLi)
+
+        let memberEmail = document.createElement('p')
+        memberEmail.innerText = member.email 
+        memberUl.appendChild(memberEmail)
+
+        let memberSkillUl = document.createElement('ul')
+        memberLi.appendChild(memberSkillUl)
+
+        member.userSkills.forEach((skill) => {
             let skillLi = document.createElement('li')
             skillLi.innerText = skill.type
             memberSkillUl.appendChild(skillLi)
-          })
         })
-        // create skills div
-        let skillsDiv = document.createElement('div')
-        myteamInfoSpot.appendChild(skillsDiv)
+    })
+    // create skills div
+    let skillsDiv = document.createElement('div')
+    divInfo.appendChild(skillsDiv)
 
-        let skillsHeader = document.createElement('h5')
-        skillsHeader.innerText = 'Skills Wanted:'
-        skillsDiv.appendChild(skillsHeader)
+    let skillsHeader = document.createElement('h5')
+    skillsHeader.innerText = 'Skills Wanted:'
+    skillsDiv.appendChild(skillsHeader)
 
-        let skillsUl = document.createElement('ul')
-        skillsDiv.appendChild(skillsUl)
+    let skillsUl = document.createElement('ul')
+    skillsDiv.appendChild(skillsUl)
 
-        skillsWantedInfo.forEach((skill) => {
-          let skillWantedLi = document.createElement('li')
-          skillWantedLi.innerText = skill.type
-          skillsUl.appendChild(skillWantedLi)
-        })
-        // create description div
-        let descriptionDiv = document.createElement('div')
-        myteamInfoSpot.appendChild(descriptionDiv)
+    skillsWantedInfo.forEach((skill) => {
+        let skillWantedLi = document.createElement('li')
+        skillWantedLi.innerText = skill.type
+        skillsUl.appendChild(skillWantedLi)
+    })
+    // create description div
+    let descriptionDiv = document.createElement('div')
+    divInfo.appendChild(descriptionDiv)
 
-        let descriptionHeader = document.createElement('h5')
-        descriptionHeader.innerText = 'Description:'
-        descriptionDiv.appendChild(descriptionHeader)
+    let descriptionHeader = document.createElement('h5')
+    descriptionHeader.innerText = 'Description:'
+    descriptionDiv.appendChild(descriptionHeader)
 
-        let descriptionPara = document.createElement('p')
-        descriptionPara.innerText = teamInfo.description
-        descriptionDiv.appendChild(descriptionPara)
-        // create manage button
-        // put teamid in local storage then go to show-team-info.html
-        let manageBtnDiv = document.createElement('div')
-        myteamInfoSpot.appendChild(manageBtnDiv)
-
-        let manageBtn = document.createElement('button')
-        manageBtn.setAttribute('type', 'button')
-        manageBtn.setAttribute('data-teamId', teamInfo.id)
-        manageBtn.classList.add('btn')
-        manageBtn.classList.add('btn-outline-secondary')
-        manageBtn.innerText = 'Manage'
-        manageBtnDiv.appendChild(manageBtn)
-        manageBtn.addEventListener('click', (e) => {
-          let teamStoreId = e.target.getAttribute('data-teamId')
-          localStorage.setItem('edit-team-Id', teamStoreId)
-          location.href = "show-team-info.html"
-        })
-      })
-
-  }
-  // build other teams cards
-  let createOtherTeamsCards = () => {
-      let otherTeamDiv = document.getElementById('otherTeams')
-  }
-//   <div class="card border-secondary">
-//                 <div class="card-body">
-//                   <h5 class="card-title">Card title</h5>
-//                   <p class="card-text">This is another card with title and supporting text below. This card has some
-//                     additional content to make it slightly taller overall.</p>
-//                 </div>
-//               </div>
+    let descriptionPara = document.createElement('p')
+    descriptionPara.innerText = teamInfo.description
+    descriptionDiv.appendChild(descriptionPara)
+}

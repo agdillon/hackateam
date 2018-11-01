@@ -16,3 +16,7 @@ img{
   .myTeam {
     width: 100%
   }
+
+  .hidden {
+    display: none;
+  }
