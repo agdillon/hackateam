@@ -21,6 +21,7 @@ const eventsRouter = require('./routes/events')
 const skillsRouter = require('./routes/skills')
 
 app.use(cors())
+app.use(cookieParser())
 
 app.use(cookieSession({ secret: process.env.COOKIE_SECRET, httpOnly: false }))
 
@@ -74,6 +75,7 @@ passport.use(new GitHubStrategy(
             first_name: firstName, last_name: lastName, user_picture_url: profile._json.avatar_url })
             .returning()
             .then(user => {
+              console.log(user)
               done(null, user)
             })
             .catch(err => next(err))
