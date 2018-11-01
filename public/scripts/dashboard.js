@@ -172,7 +172,7 @@ function createCard(event, team) {
 
         skillsWantedInfo.forEach((skill) => {
           let skillWantedLi = document.createElement('li')
-          skillWantedLi.innerText = skill
+          skillWantedLi.innerText = skill.type
           skillsUl.appendChild(skillWantedLi)
         })
         // create description div
@@ -199,8 +199,8 @@ function createCard(event, team) {
         manageBtn.innerText = 'Manage'
         manageBtnDiv.appendChild(manageBtn)
         manageBtn.addEventListener('click', (e) => {
-          let teamId = e.target.getAttribute('data-teamId')
-          localStorage.setItem('edit-team-Id', teamId)
+          let teamStoreId = e.target.getAttribute('data-teamId')
+          localStorage.setItem('edit-team-Id', teamStoreId)
           location.href = "show-team-info.html"
         })
       })
