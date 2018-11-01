@@ -1,4 +1,16 @@
-.chip {
+@font-face {
+    font-family: 'h1Font'; /*a name to be used later*/
+    src: url('./fonts/Oswald/Oswald-Bold.ttf'); /*dir to font*/
+}
+@font-face {
+    font-family: 'h2Font'; /*a name to be used later*/
+    src: url('./fonts/Roboto/Roboto-BoldItalic.ttf'); /*dir to font*/
+}
+@font-face {
+    font-family: 'labelFont'; /*a name to be used later*/
+    src: url('./fonts/Roboto/Roboto-Regular.ttf'); /*dir to font*/
+}
+chip {
     display: inline-block;
     padding: 0 25px;
     height: 50px;

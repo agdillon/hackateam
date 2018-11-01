@@ -1,0 +1,37 @@
+@font-face {
+    font-family: 'h1Font'; /*a name to be used later*/
+    src: url('./fonts/Oswald/Oswald-Bold.ttf'); /*dir to font*/
+}
+@font-face {
+    font-family: 'labelFont'; /*a name to be used later*/
+    src: url('./fonts/Roboto/Roboto-Regular.ttf'); /*dir to font*/
+}
+h2, h3{
+  font-family: labelFont;
+  color: #d4d4dc;
+}
+p{
+  font-family: sans-serif;
+  font-size: 25px;
+}
+.jumbotron{
+background:
+       /* top, transparent black, faked with gradient */
+       linear-gradient(
+         rgba(0, 0, 0, 0.5),
+         rgba(0, 0, 0, 0.5)
+       ),
+       /* bottom, image */
+       url('https://images.pexels.com/photos/34676/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=2&h=3500') fixed center no-repeat;
+       background-size: cover;
+       padding-top: 12%;
+       padding-bottom: 12%;
+   }
+h1{
+  font-family: 'h1Font';
+  color: #e5e5ff;
+  font-size: 80px;
+}
+body{
+  background-color: #393f4d
+}
