@@ -59,6 +59,7 @@ function createCard(infoObject) {
   cardDate.innerText = date[0]
   cardLocation.innerText = infoObject.location
   cardButton.innerText = "Find Team"
+  cardButton.setAttribute('style','font-size:20px; color:white; font-weight:bold')
   cardButton.classList.add('btn')
   cardButton.classList.add('btn-primary')
   // append all data to the card contents
