@@ -15,7 +15,6 @@ function getCookieValue(a) {
 let userId = JSON.parse(atob(getCookieValue('session'))).passport.user
 
 document.addEventListener('DOMContentLoaded', () => {
-
     // getUserTeams()
     fillEventInfo()
 

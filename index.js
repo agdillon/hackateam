@@ -39,7 +39,7 @@ passport.deserializeUser((id, done) => {
     .then(user => {
       done(null, user)
     })
-    .catch(err => next(err))
+    .catch(err => { next(err) } )
 })
 
 passport.use(new GitHubStrategy(
@@ -87,7 +87,6 @@ passport.use(new GitHubStrategy(
 app.use(passport.session())
 
 app.use(express.json())
-app.use(cookieParser())
 
 app.use(express.static('public'))
 
