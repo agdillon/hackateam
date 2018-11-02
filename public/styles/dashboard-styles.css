@@ -59,3 +59,6 @@ img{
     font-size: 40px;
     color: #e5e5ff;
   }
+  li{
+    text-align: left;
+  }

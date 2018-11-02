@@ -31,11 +31,13 @@ h3{
   width: 30%;
   padding: 5px;
   text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 p{
   font-family: sans-serif;
   font-size: 20px;
-  color: #d4d4dc;
+  color: black;
 }
 .jumbotron{
 background:
@@ -62,8 +64,4 @@ a:hover{
   -webkit-stroke-color: #FFFFFF;
   -webkit-fill-color: #FFFFFF;
   text-shadow: 1px 0px 20px blue;
-}
-.card{
-  margin-top: 20px;
-  margin-bottom: 20px;
 }

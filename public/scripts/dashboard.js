@@ -10,9 +10,9 @@ function getCookieValue(a) {
 }
 
 // temporary hardcoding of userId
-// let userId = 2
+let userId = 2
 // get userId out of cookie
-let userId = JSON.parse(atob(getCookieValue('session'))).passport.user
+// let userId = JSON.parse(atob(getCookieValue('session'))).passport.user
 
 document.addEventListener('DOMContentLoaded', () => {
     // getUserTeams()
@@ -278,23 +278,33 @@ let createOtherTeamsCards = (team, eventName) => {
 
 
     let memberUl = document.createElement('ul')
+    memberUl.setAttribute('style','text-align:left')
+
     membersDiv.appendChild(memberUl)
 
     memberInfo.forEach((member) => {
         let memberLi = document.createElement('li')
+        memberLi.setAttribute('style','text-align:left')
+
         memberLi.innerText = `${member.first_name} ${member.last_name}`
         memberUl.appendChild(memberLi)
 
         let memberEmail = document.createElement('p')
+        memberEmail.setAttribute('style','text-align:left')
+
         memberEmail.innerText = member.email
         memberUl.appendChild(memberEmail)
 
         let memberSkillUl = document.createElement('ul')
+        memberSkillUl.setAttribute('style','text-align:left')
+
         memberLi.appendChild(memberSkillUl)
 
         member.userSkills.forEach((skill) => {
             let skillLi = document.createElement('li')
+
             skillLi.innerText = skill.type
+            skillLi.setAttribute('style','text-align:left')
             memberSkillUl.appendChild(skillLi)
         })
     })
@@ -307,10 +317,13 @@ let createOtherTeamsCards = (team, eventName) => {
     skillsDiv.appendChild(skillsHeader)
 
     let skillsUl = document.createElement('ul')
+    skillsUl.setAttribute('style','text-align:left')
+
     skillsDiv.appendChild(skillsUl)
 
     skillsWantedInfo.forEach((skill) => {
         let skillWantedLi = document.createElement('li')
+        skillWantedLi.setAttribute('style','text-align:left')
         skillWantedLi.innerText = skill.type
         skillsUl.appendChild(skillWantedLi)
     })
@@ -323,6 +336,7 @@ let createOtherTeamsCards = (team, eventName) => {
     descriptionDiv.appendChild(descriptionHeader)
 
     let descriptionPara = document.createElement('p')
+    descriptionPara.setAttribute('style','text-align:left')
     descriptionPara.innerText = teamInfo.description
     descriptionDiv.appendChild(descriptionPara)
 }
