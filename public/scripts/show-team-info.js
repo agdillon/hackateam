@@ -42,7 +42,10 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(response => {
           console.log(response.data)
           skillAdded.id = response.data.skillData.id
-          createSkillChips(skillAdded)
+          // don't add blank skills
+          if (skillAdded) {
+            createSkillChips(skillAdded)            
+          }
         })
         .catch((err) => { console.log(err) })
     }

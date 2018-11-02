@@ -97,7 +97,10 @@ document.addEventListener('DOMContentLoaded', () => {
       axios.post(`${url}/skills`, { type: skillAdded.type, user_id: userId })
         .then(response => {
           skillAdded.id = response.data.skillsData.id
-          createChip(skillAdded)
+          // don't add blank skills
+          if (skillAdded) {
+            createChip(skillAdded)
+          }
         })
         .catch((err) => { console.log(err) })
     }
