@@ -14,7 +14,7 @@ position: relative;
 float: none;
 color: black;
 font-size: 40px;
-font-family: monospace;
+font-family: h1Font;
 font-weight: bold;
 letter-spacing: -1px;
 line-height: 1;
@@ -41,8 +41,9 @@ label {
   font-weight: bold;
   font-size: 18px;
   padding-top:6px;
+  padding-bottom: 6px;
   color:black;
-  font-family: monospace;
+  font-family: labelFont;
 }
 
 body{
