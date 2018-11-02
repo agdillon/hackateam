@@ -49,9 +49,6 @@ body{
    background-size: cover;
 }
 
-.input-group {
-  margin: 20px 0;
-}
 #brand{
   color: white;
   font-family: labelFont;
