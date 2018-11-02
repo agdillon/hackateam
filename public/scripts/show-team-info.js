@@ -35,30 +35,33 @@ document.addEventListener('DOMContentLoaded', () => {
 
   addSkillBtn.addEventListener('click', () => {
     let skillInput = document.querySelector(`[list='skills']`)
-    let skillAdded = { type: skillInput.value }
-
-    if (allPossibleSkills.includes(skillAdded.type)) {
-      axios.post(`${url}/skills`, { type: skillAdded.type, team_id: teamId })
-        .then(response => {
-          console.log(response.data)
-          skillAdded.id = response.data.skillData.id
-          createSkillChips(skillAdded)
-        })
-        .catch((err) => { console.log(err) })
-    }
     // don't add blank skills
-    else if (skillAdded) {
-      allPossibleSkills.push(skillAdded.type)
+    if (skillInput.value) {
+      let skillAdded = { type: skillInput.value }
 
-      axios.post(`${url}/skills/new`, { type: skillAdded.type, team_id: teamId })
-        .then(response => {
-          skillAdded.id = response.data.skillData.id
-          createSkillChips(skillAdded)
-        })
-        .catch((err) => { console.log(err) })
+      if (allPossibleSkills.includes(skillAdded.type)) {
+        axios.post(`${url}/skills`, { type: skillAdded.type, team_id: teamId })
+          .then(response => {
+            console.log(response.data)
+            skillAdded.id = response.data.skillData.id
+            createSkillChips(skillAdded)
+          })
+          .catch((err) => { console.log(err) })
+      }
+      // don't add blank skills
+      else if (skillAdded) {
+        allPossibleSkills.push(skillAdded.type)
+
+        axios.post(`${url}/skills/new`, { type: skillAdded.type, team_id: teamId })
+          .then(response => {
+            skillAdded.id = response.data.skillData.id
+            createSkillChips(skillAdded)
+          })
+          .catch((err) => { console.log(err) })
+      }
+
+      skillInput.value = ''
     }
-
-    skillInput.value = ''
   })
 
   // on submit, get info out of form and update team in database
