@@ -15,13 +15,13 @@
 
 .chip {
     display: inline-block;
+    margin: 10px;
     padding: 0 25px;
     height: 50px;
     font-size: 16px;
     line-height: 50px;
     border-radius: 25px;
     background-color: #f1f1f1;
-    margin-bottom: 20px;
 }
 
 .closebtn {
