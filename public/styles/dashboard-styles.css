@@ -15,7 +15,7 @@ img{
     width: 30%;
     padding: 5px;
     text-align: center;
-    margin-top: 20px;
+    margin-top: 5px;
     margin-bottom: 20px;
   }
 
@@ -53,6 +53,7 @@ img{
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 20px;
+    width: 100%;
   }
   #eventsInvolved{
     font-family: labelFont;
@@ -62,3 +63,11 @@ img{
   li{
     text-align: left;
   }
+  ul {
+  list-style-type: none;
+  font-weight: normal;
+}
+.card-header{
+  font-size: 25px;
+  font-weight: bold;
+}

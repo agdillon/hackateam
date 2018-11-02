@@ -203,6 +203,8 @@ let createSkillChips = (skill) => {
   let chipDiv = document.createElement('div')
   chipDiv.classList.add('chip')
   chipDiv.innerText = skill.type
+  chipDiv.setAttribute('style', 'margin-right:8px; border: 1px solid black')
+
   chipDiv.setAttribute('id', skill.type)
   let closeSpan = document.createElement('span')
   closeSpan.classList.add('closebtn')

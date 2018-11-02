@@ -176,19 +176,21 @@ let createYourTeamCard = (teamId, eventName) => {
             memberHeading.innerText = 'Members:'
             membersDiv.appendChild(memberHeading)
 
-            let memberUl = document.createElement('ul')
+            let memberUl = document.createElement('p')
             membersDiv.appendChild(memberUl)
 
             memberInfo.forEach((member) => {
                 let memberLi = document.createElement('li')
+                memberLi.setAttribute('style', 'text-align:center; font-weight:bold')
                 memberLi.innerText = `${member.first_name} ${member.last_name}`
                 memberUl.appendChild(memberLi)
 
-                let memberSkillUl = document.createElement('ul')
+                let memberSkillUl = document.createElement('p')
                 memberLi.appendChild(memberSkillUl)
 
                 member.userSkills.forEach((skill) => {
-                    let skillLi = document.createElement('li')
+                    let skillLi = document.createElement('p')
+                    skillLi.setAttribute('style', 'font-weight:normal; line-height: normal')
                     skillLi.innerText = skill.type
                     memberSkillUl.appendChild(skillLi)
                 })
@@ -201,11 +203,12 @@ let createYourTeamCard = (teamId, eventName) => {
             skillsHeader.innerText = 'Skills Wanted:'
             skillsDiv.appendChild(skillsHeader)
 
-            let skillsUl = document.createElement('ul')
+            let skillsUl = document.createElement('p')
             skillsDiv.appendChild(skillsUl)
 
             skillsWantedInfo.forEach((skill) => {
-                let skillWantedLi = document.createElement('li')
+                let skillWantedLi = document.createElement('p')
+                skillWantedLi.setAttribute('style', 'text-align:center')
                 skillWantedLi.innerText = skill.type
                 skillsUl.appendChild(skillWantedLi)
             })
@@ -273,18 +276,19 @@ let createOtherTeamsCards = (team, eventName) => {
     divInfo.appendChild(membersDiv)
 
     let memberHeading = document.createElement('h5')
+
     memberHeading.innerText = 'Members:'
     membersDiv.appendChild(memberHeading)
 
 
-    let memberUl = document.createElement('ul')
-    memberUl.setAttribute('style','text-align:left')
+    let memberUl = document.createElement('p')
+    memberUl.setAttribute('style','text-align:center')
 
     membersDiv.appendChild(memberUl)
 
     memberInfo.forEach((member) => {
         let memberLi = document.createElement('li')
-        memberLi.setAttribute('style','text-align:left')
+        memberLi.setAttribute('style','text-align:center; font-weight:bold')
 
         memberLi.innerText = `${member.first_name} ${member.last_name}`
         memberUl.appendChild(memberLi)
@@ -296,15 +300,13 @@ let createOtherTeamsCards = (team, eventName) => {
         memberUl.appendChild(memberEmail)
 
         let memberSkillUl = document.createElement('ul')
-        memberSkillUl.setAttribute('style','text-align:left')
 
         memberLi.appendChild(memberSkillUl)
 
         member.userSkills.forEach((skill) => {
             let skillLi = document.createElement('li')
-
-            skillLi.innerText = skill.type
             skillLi.setAttribute('style','text-align:left')
+            skillLi.innerText = skill.type
             memberSkillUl.appendChild(skillLi)
         })
     })
