@@ -18,7 +18,11 @@ img{
     margin-top: 5px;
     margin-bottom: 20px;
   }
-
+  h1{
+    font-family: h1Font
+    color: white;
+    font-size: 60px;
+  }
   .team {
     width: 100%
   }
@@ -71,3 +75,16 @@ img{
   font-size: 25px;
   font-weight: bold;
 }
+.jumbotron{
+background:
+       /* top, transparent black, faked with gradient */
+       linear-gradient(
+         rgba(0, 0, 0, 0.4),
+         rgba(0, 0, 0, 0.4)
+       ),
+       /* bottom, image */
+       url('https://images.pexels.com/photos/735911/pexels-photo-735911.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940') fixed center no-repeat;
+       background-size: cover;
+       padding-top: 12%;
+       padding-bottom: 12%;
+   }
