@@ -25,11 +25,14 @@ document.addEventListener('DOMContentLoaded', () => {
     addButton.addEventListener('click', () => {
         let skillInput = document.getElementById('skillsWanted')
         let skillAdded = document.getElementById('skillsWanted').value
-        // create chip
-        createChip(skillAdded, chipsDiv)
-        // add value for submit
-        skillsToAdd.push(skillAdded)
-        skillInput.value = ''
+        // don't add blank skills
+        if (skillAdded) {
+          // create chip
+          createChip(skillAdded, chipsDiv)
+          // add value for submit
+          skillsToAdd.push(skillAdded)
+          skillInput.value = ''
+        }
     })
     // checkbox functionality
     let checkBox = document.getElementById('has-idea')

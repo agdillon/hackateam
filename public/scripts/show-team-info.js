@@ -42,14 +42,12 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(response => {
           console.log(response.data)
           skillAdded.id = response.data.skillData.id
-          // don't add blank skills
-          if (skillAdded) {
-            createSkillChips(skillAdded)
-          }
+          createSkillChips(skillAdded)
         })
         .catch((err) => { console.log(err) })
     }
-    else {
+    // don't add blank skills
+    else if (skillAdded) {
       allPossibleSkills.push(skillAdded.type)
 
       axios.post(`${url}/skills/new`, { type: skillAdded.type, team_id: teamId })
