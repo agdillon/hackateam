@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
           skillAdded.id = response.data.skillData.id
           // don't add blank skills
           if (skillAdded) {
-            createSkillChips(skillAdded)            
+            createSkillChips(skillAdded)
           }
         })
         .catch((err) => { console.log(err) })
@@ -104,8 +104,8 @@ let getTeam = () => {
           hasIdeaInput.checked = false
         }
 
-        if (teamData.team_size_limit >= 1 && teamData.team_size_limit <=6) {
-          document.getElementById(teamData.team_size_limit).selected = true
+        if (teamData.team_size_limit >= 1 && teamData.team_size_limit <= 6) {
+          document.getElementById(teamData.team_size_limit.toString()).selected = true
         }
 
         addMemberBtn.setAttribute('data-id', teamData[0].id)
